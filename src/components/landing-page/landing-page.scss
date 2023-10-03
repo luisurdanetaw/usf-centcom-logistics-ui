@@ -1,0 +1,14 @@
+.landing-page-container{
+  background-color: rgba(0,0,0,0.9);
+  height: 100vh;
+}
+.graph-table-height{
+  max-height: 25rem !important;
+  overflow: scroll;
+  margin-right: 2.5rem;
+  margin-left: 2.5rem;
+}
+
+.graph-table-height::-webkit-scrollbar {
+  display:none;
+}
