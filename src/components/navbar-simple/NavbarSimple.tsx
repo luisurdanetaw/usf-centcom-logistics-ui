@@ -9,20 +9,18 @@ import {
     IconDatabaseImport,
     IconReceipt2,
     IconSwitchHorizontal,
-    IconLogout,
+    IconLogout, IconHome, IconBuildingWarehouse, IconCheck, IconGraph,
 } from '@tabler/icons-react';
 import { MantineLogo } from '@mantine/ds';
 import  './navbar-simple.scss';
 import Header = Combobox.Header;
 
 const data = [
-    { link: '', label: 'Notifications', icon: IconBellRinging },
-    { link: '', label: 'Billing', icon: IconReceipt2 },
-    { link: '', label: 'Security', icon: IconFingerprint },
-    { link: '', label: 'SSH Keys', icon: IconKey },
-    { link: '', label: 'Databases', icon: IconDatabaseImport },
-    { link: '', label: 'Authentication', icon: Icon2fa },
-    { link: '', label: 'Other Settings', icon: IconSettings },
+    { link: '', label: 'Home', icon: IconHome },
+    { link: '', label: 'TMR History', icon: IconReceipt2 },
+    { link: '', label: 'Approvals', icon: IconCheck},
+    { link: '', label: 'Inventory', icon: IconBuildingWarehouse},
+    { link: '', label: 'Analysis', icon: IconGraph},
 ];
 
 export function NavbarSimple() {
@@ -53,7 +51,7 @@ export function NavbarSimple() {
                         src="https://logos-world.net/wp-content/uploads/2021/11/US-Army-Logo.png"
                         className='navbar-logo'
                     />
-                    <Title order={4} className='title'>SPO Commodites</Title>
+                    <Title order={4} className='title'>CENTCOM Logistics</Title>
                     <Code fw={700} className={'version'}>v1.0.0</Code>
                 </Group>
                 {links}

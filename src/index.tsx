@@ -10,6 +10,8 @@ import {
 } from "react-router-dom";
 
 import { MantineProvider, createTheme } from '@mantine/core';
+import LoginPage from "./components/login-signup-page/LoginPage";
+import SignUpPage from "./components/login-signup-page/SignUpPage";
 
 const theme = createTheme({
     /** Put your mantine theme override here */
@@ -18,6 +20,14 @@ const theme = createTheme({
 const router = createBrowserRouter([
     {
         path: "/",
+        element: <LoginPage/>,
+    },
+    {
+        path: "/register",
+        element: <SignUpPage/>,
+    },
+    {
+        path: "/home",
         element: <App/>,
     },
 ]);
