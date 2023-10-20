@@ -14,8 +14,8 @@ const SignUpPage: React.FC = () => {
         const password = passwordInputRef.current?.value || "";
 
         try{
-            const response:boolean = await register(email, password);
-            response ? navigate("/home") : alert("Invalid username and password combination");
+            const response:any = await register(email, password);
+            response !== null ? navigate("/home") : navigate("/");
         }
         catch (e) {
             alert("Invalid username and password combination");
@@ -35,8 +35,8 @@ const SignUpPage: React.FC = () => {
                                radius="sm"
                                src="https://logos-world.net/wp-content/uploads/2021/11/US-Army-Logo.png"
                         />
-                        <Title order={1}>CENTCOM</Title>
-                        <small>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum felis a eros vehicula, eu fringilla dui volutpat."</small>
+                        <Title order={1} style={{color: 'whitesmoke'}}>CENTCOM</Title>
+                        <small style={{color: 'whitesmoke'}}>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum felis a eros vehicula, eu fringilla dui volutpat."</small>
                     </div>
                 </Grid.Col>
                 <Grid.Col span={6}>
@@ -44,21 +44,21 @@ const SignUpPage: React.FC = () => {
                         <Title className={"welcome-text"}order={1}>Create Account</Title>
                         <div className={"login-form-inputs"}>
                             <TextInput
-                                className={"input"}
                                 label="Email"
                                 placeholder="example@army.mil"
                                 ref={emailInputRef}
+                                classNames={{input:'input', label:'label'}}
                             />
                             <TextInput
-                                className={"input"}
                                 label="Password"
                                 ref={passwordInputRef}
                                 type="password"
+                                classNames={{input:'input', label:'label'}}
                             />
                         </div>
                         <div className={"login-form-buttons"}>
-                            <Button variant="filled" className={"login-button grow-on-hover"} onClick={onClickLogin}>Login</Button>
-                            <Button variant="outline"  className={"signup-button grow-on-hover"} onClick={onClickRegister}>Sign Up</Button>
+                            <Button variant="outline" style={{marginRight:'10px'}}className={"signup-button grow-on-hover"} onClick={onClickLogin}>Login</Button>
+                            <Button variant="filled" className={"login-button grow-on-hover"} onClick={onClickRegister}>Sign Up</Button>
                         </div>
                     </div>
                 </Grid.Col>

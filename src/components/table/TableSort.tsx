@@ -183,13 +183,15 @@ export function TableSort() {
     ));
 
     return (
-        <ScrollArea>
+        <ScrollArea h={300}>
             <TextInput
                 placeholder="Search by any field"
                 mb="md"
                 leftSection={<IconSearch style={{ width: rem(16), height: rem(16) }} stroke={1.5} />}
                 value={search}
                 onChange={handleSearchChange}
+                style={{maxWidth:'75%'}}
+                classNames={{input:'input', label:'label'}}
             />
             <Table horizontalSpacing="md" verticalSpacing="xs" miw={700} layout="fixed">
                 <Table.Tbody>

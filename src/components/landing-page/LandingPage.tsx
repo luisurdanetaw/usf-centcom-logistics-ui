@@ -45,7 +45,7 @@ export const LandingPage: React.FC<HelloWorldProps> = ({ name }) => {
                                  <LineChart data={initialData}/>
                              </div>
                              <div className={'graph-table-height'}>
-                                 <h3>Top requesters</h3>
+                                 <h3 style={{color: "lightgray"}}>Top requesters</h3>
                                  <TableSort/>
                              </div>
                          </SimpleGrid>

@@ -35,8 +35,8 @@ const Layout: React.FC = () => {
                                radius="sm"
                                src="https://logos-world.net/wp-content/uploads/2021/11/US-Army-Logo.png"
                         />
-                        <Title order={1}>CENTCOM</Title>
-                        <small>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum felis a eros vehicula, eu fringilla dui volutpat."</small>
+                        <Title order={1} style={{color: 'whitesmoke'}}>CENTCOM</Title>
+                        <small style={{color: 'whitesmoke'}}>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum felis a eros vehicula, eu fringilla dui volutpat."</small>
                     </div>
                 </Grid.Col>
                 <Grid.Col span={6}>
@@ -44,21 +44,22 @@ const Layout: React.FC = () => {
                         <Title className={"welcome-text"}order={1}>Welcome Back</Title>
                         <div className={"login-form-inputs"}>
                             <TextInput
-                                className={"input"}
                                 label="Email"
                                 placeholder="example@army.mil"
                                 ref={emailInputRef}
+                                classNames={{input:'input', label:'label'}}
                             />
                             <TextInput
                                 className={"input"}
                                 label="Password"
                                 ref={passwordInputRef}
                                 type="password"
+                                classNames={{input:'input', label:'label'}}
                             />
                         </div>
                         <div className={"login-form-buttons"}>
-                            <div className={"forgot-password"}>
-                                <a href={"#"}>Forgot your password?</a>
+                            <div>
+                                <a className={"forgot-password"} href={"#"}>Forgot your password?</a>
                             </div>
                             <Button variant="filled" className={"login-button grow-on-hover"} onClick={onClickLogin}>Login</Button>
                             <Button variant="outline"  className={"signup-button grow-on-hover"} onClick={onClickRegister}>Sign Up</Button>

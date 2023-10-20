@@ -17,7 +17,7 @@ import Header = Combobox.Header;
 
 const data = [
     { link: '', label: 'Home', icon: IconHome },
-    { link: '', label: 'TMR History', icon: IconReceipt2 },
+    { link: '', label: 'TMR', icon: IconReceipt2 },
     { link: '', label: 'Approvals', icon: IconCheck},
     { link: '', label: 'Inventory', icon: IconBuildingWarehouse},
     { link: '', label: 'Analysis', icon: IconGraph},
@@ -52,7 +52,7 @@ export function NavbarSimple() {
                         className='navbar-logo'
                     />
                     <Title order={4} className='title'>CENTCOM Logistics</Title>
-                    <Code fw={700} className={'version'}>v1.0.0</Code>
+                    <Code fw={700} style={{backgroundColor:'rgb(27 42 61)', color:'white'}}>v1.0.0</Code>
                 </Group>
                 {links}
             </div>

@@ -1,6 +1,6 @@
 /* login-page.scss */
 .login-page-container {
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: black;
   height: 100vh;
 
   .left {
@@ -28,20 +28,32 @@
     .welcome-text {
       text-align: center;
       margin-bottom: 20px;
+      color: whitesmoke;
     }
 
     .login-form-inputs {
-      .input {
-        margin-bottom: 10px;
+
+      .label{
+        color: lightgray;
+        margin-bottom: 0.5em;
       }
-      .input:focus > :nth-child(2) {
+      .input {
+        color:lightgray;
+        background-color: black;
+        margin-bottom: 0.75em;
+      }
+      .input:focus{
         border: 2px solid rgba(255, 234, 0, 0.7);
       }
       margin-bottom: 10px;
     }
 
     .forgot-password {
+      color: lightgray;
       margin-top: 20px;
+    }
+    .forgot-password:hover {
+      color: rgba(255, 234, 0, 0.7);
     }
 
     .login-form-buttons {
