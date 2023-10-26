@@ -18,10 +18,9 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {ImageComponent} from "../ImageComponent/ImageComponent";
 
 const data = [
-    { link: '/mcb/home', label: 'Home', icon: IconHome },
+    { link: '/mcb/inventory', label: 'Inventory', icon: IconBuildingWarehouse},
     { link: '/mcb/tmr', label: 'TMR', icon: IconReceipt2 },
     { link: '/', label: 'Approvals', icon: IconCheck},
-    { link: '/mcb/inventory', label: 'Inventory', icon: IconBuildingWarehouse},
     { link: '/mcb/trends', label: 'Analysis', icon: IconGraph},
 ];
 

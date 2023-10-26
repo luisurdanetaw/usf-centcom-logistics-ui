@@ -16,7 +16,7 @@ const Layout: React.FC = () => {
 
         try{
             const response:boolean = await login(email, password);
-            response ? navigate("/home") : alert("Invalid username and password combination");
+            response ? navigate("/mcb/inventory") : alert("Invalid username and password combination");
         }
         catch (e) {
             alert("Invalid username and password combination");

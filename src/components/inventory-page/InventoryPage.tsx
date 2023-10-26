@@ -117,6 +117,8 @@ const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
                     setSelectedSupply(selectedSupply);
                     const selectedSupplyData = inventoryData[selectedSupply];
                     setSelectedSupplyData(selectedSupplyData);
+                    const supplyOptions = Object.keys(inventoryData);
+                    setOptions(supplyOptions ?? ["Gas"]);
                 }
             }
         }
@@ -124,7 +126,7 @@ const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
 
     useEffect(() => {
         const supplyOptions = Object.keys(inventoryData);
-        setOptions(supplyOptions);
+        setOptions(supplyOptions ?? ["Gas"]);
     }, [inventoryData]);
 
 
