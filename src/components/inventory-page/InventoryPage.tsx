@@ -20,40 +20,102 @@ import {RingCard} from "../stats-ring-card/RingCard";
 import {StatsSegmented} from "../stats-segmeneted/StatsSegmented";
 import {useNavigate} from "react-router-dom";
 import {searchFacilityByName} from "../../services/api/facility";
+import { useQuery } from 'react-query';
 
 interface HelloWorldProps {
     name: string;
 }
-
+/*{
+    "id": 2,
+    "name": "Fort Bragg",
+    "country": "USA",
+    "state": "FL",
+    "zipcode": "32809",
+    "co_name": "Emily Davis",
+    "co_email": "emily.davis@example.com",
+    "co_number": "444-555-6666",
+    "status": "green",
+    "inventory": {
+        "inventory_id": 4,
+        "facility_id": 2,
+        "item_name": "gas",
+        "stockage_objective": 5000,
+        "quantity": 2500,
+        "consumption": 50,
+        "status": "green"
+    }
+}*/
+function capitalizeFirstLetter(input: string): string {
+    return input.charAt(0).toUpperCase() + input.slice(1);
+}
 const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
     const navigate = useNavigate();
+
+    const [facilityStatus, setFacilityStatus] = useState<string>("green");
     const [facilityData, setFacilityData] = useState<any | null>(null);
-    const [inventoryData, setInventoryData] = useState<any>({gas:{quantity:0,so:0,cf:0}});
+    const [inventoryData, setInventoryData] = useState<any>({Gas:{quantity:0,so:0,cf:0, class:'III'}});
     const [selectedSupplyData, setSelectedSupplyData] = useState<any>({quantity:0,so:0,cf:0});
     const [selectedSupply, setSelectedSupply] = useState<string>("");
     const [options, setOptions] = useState<string[]>(["Test"])
 
     const [facilityName, setFacilityName] = useState('Fort Moore');
 
+    function getFacilityStatus(){
+        if(facilityData?.['status'] === 'green')
+            return 'Healthy';
+        else if(facilityData['status'] === 'yellow')
+            return 'At Risk'
+        else return 'Critical'
+    }
+
     async function onClickSearch() {
         const facility = await searchFacilityByName(facilityName);
-        console.log(facility)
+        console.log("SEARCHING FOR FACILITY:", facility)
         setFacilityData(facility);
     }
     useEffect(() => {
         if (facilityData) {
-            const inventory = facilityData['inventory'];
+            const inventoryJson = facilityData['inventory'];
+            const inventory = {};
+
+            const colors = new Set<string>();
+
+            for (const obj of inventoryJson) {
+                let supply = obj['item_name'];
+                supply = capitalizeFirstLetter(supply);
+                const quantity = obj['quantity'];
+                const so = obj['stockage_objective'];
+                const cf = obj['consumption'];
+                const supplyClass = obj['class'];
+
+                colors.add(obj['status']);
+                // @ts-ignore
+                inventory[supply] = {
+                    quantity: quantity,
+                    so: so,
+                    cf: cf,
+                    class: supplyClass
+                }
+            }
+
+            if(colors.has('black')){
+                console.log("Facility got black color code")
+                setFacilityStatus("black")
+            }
+            if(colors.has('yellow')){
+                console.log("facility got yellow color code")
+                setFacilityStatus("yellow")
+            }
+
             console.log(inventory);
             setInventoryData(inventory);
 
             if (inventory) {
-                const selectedSupply = Object.keys(inventory).at(0);
-                console.log("Selected supply: ", selectedSupply);
+                const selectedSupply = Object.keys(inventoryData).at(0);
 
                 if (selectedSupply) {
                     setSelectedSupply(selectedSupply);
-                    const selectedSupplyData = inventory[selectedSupply];
-                    console.log("Selected supply data: ", selectedSupplyData);
+                    const selectedSupplyData = inventoryData[selectedSupply];
                     setSelectedSupplyData(selectedSupplyData);
                 }
             }
@@ -62,9 +124,7 @@ const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
 
     useEffect(() => {
         const supplyOptions = Object.keys(inventoryData);
-        console.log("variable options", supplyOptions);
         setOptions(supplyOptions);
-        console.log("options after update: ", options);
     }, [inventoryData]);
 
 
@@ -99,22 +159,27 @@ const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
 
                                         <Group justify="space-between" mt="md" mb="xs">
                                             <Text fw={500}>{facilityData?.['name']}</Text>
-                                            <Badge color="red" variant="light">
-                                                Critical
+                                            <Badge color={
+                                                facilityData ?
+                                                    (facilityData['status'] === 'black' ? 'gray' : facilityData['status'])
+                                                : "green"
+                                            } variant="light"
+                                            >
+                                                {facilityData ? getFacilityStatus() : "Healthy"}
                                             </Badge>
                                         </Group>
 
                                         <Text size="sm" c="dimmed">
-                                            Location: {facilityData?.['location']}
+                                            Location: {facilityData?.['state']}
                                         </Text>
                                         <Text size="sm" c="dimmed">
-                                            CO: {facilityData?.['co']}
+                                            CO: {facilityData?.['co_name']}
                                         </Text>
                                         <Text size="sm" c="dimmed">
-                                            Phone: {facilityData?.['phone']}
+                                            Phone: {facilityData?.['co_number']}
                                         </Text>
                                         <Text size="sm" c="dimmed">
-                                            Email: {facilityData?.['email']}
+                                            Email: {facilityData?.['co_email']}
                                         </Text>
 
                                         <Button
