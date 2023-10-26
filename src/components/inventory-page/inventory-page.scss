@@ -50,10 +50,13 @@
     }
     .select-menu{
       margin-top: 2.25em;
-      .m-38a85659{
-        background-color:yellow !important;
-        color:lightgray !important;
-      }
+    }
+    .option{
+      background-color: black;
+      color: lightgray;
+    }
+    .option:hover{
+      background-color:red !important;
     }
 
 

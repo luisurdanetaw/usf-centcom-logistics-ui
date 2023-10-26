@@ -70,8 +70,13 @@ const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
 
     async function onClickSearch() {
         const facility = await searchFacilityByName(facilityName);
-        console.log("SEARCHING FOR FACILITY:", facility)
-        setFacilityData(facility);
+        if (!facility || Object.keys(facility).length <= 1){
+            alert("Facility not found")
+        }
+        else{
+            console.log("SEARCHING FOR FACILITY:", facility)
+            setFacilityData(facility);
+        }
     }
     useEffect(() => {
         if (facilityData) {
@@ -224,6 +229,7 @@ const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
                                     <h2 className={"right-header"}>Inventory</h2>
                                     <hr/>
                                     <Select
+                                        classNames={{option:'option'}}
                                         className={"select-menu"}
                                         label="Search supplies"
                                         data={options}
@@ -234,7 +240,7 @@ const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
                                             setSelectedSupplyData(selected ? inventoryData[selected] : {});
                                         }}
                                         bg="rgba(0,0,0,0)"
-                                        styles={{ dropdown: { maxHeight: 200, overflowY: 'auto', backgroundColor: 'black !important', color: 'lightgray'} }}
+                                        styles={{ dropdown: { maxHeight: 200, overflowY: 'auto', backgroundColor: 'black', color: 'lightgray'} }}
                                     />
                                     <RingCard
                                         title={selectedSupply}
