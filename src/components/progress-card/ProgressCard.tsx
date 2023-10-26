@@ -15,7 +15,7 @@ export const ProgressCard: React.FC<ProgressCardProps> = ({ title, currentValue,
             <Text fz="lg" fw={500} c="lightgray">
                 {currentValue} / {total}
             </Text>
-            <Progress value={(currentValue/total)*100} mt="md" size="lg" radius="xl" color="rgba(255, 208, 18, 1)" />
+            <Progress value={(currentValue/total)*100} mt="md" size="lg" radius="xl" color="rgba(255, 208, 18, 1)" style={{backgroundColor: 'rgba(69, 68, 68, 1)'}} />
         </Card>
     );
 }

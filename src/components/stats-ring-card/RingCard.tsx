@@ -12,8 +12,7 @@ interface RingCardProps {
     so:number;
 }
 export const RingCard:React.FC<RingCardProps> = ({title, supplyClass, so, cf}) => {
-    const completed = 1887;
-    const total = 2334;
+
     const items = stats.map((stat) => (
         <div key={stat.label}>
             <Text className={'label'}>{stat.value}</Text>
@@ -46,6 +45,7 @@ export const RingCard:React.FC<RingCardProps> = ({title, supplyClass, so, cf}) =
                         roundCaps
                         thickness={6}
                         size={150}
+                        rootColor={'rgba(69, 68, 68, 1)'}
                         sections={[{ value: (cf / so) * 100, color: 'rgba(255, 208, 18, 1)' }]}
                         label={
                             <div>

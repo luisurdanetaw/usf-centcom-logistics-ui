@@ -159,7 +159,7 @@ const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
                                     <Card shadow="sm" padding="lg" radius="xs" withBorder style={{backgroundColor: 'black', borderRight: 'black', borderLeft: 'black', paddingLeft: '0', marginRight: '2em'}}>
 
                                         <Group justify="space-between" mt="md" mb="xs">
-                                            <Text fw={500}>{facilityData?.['name']}</Text>
+                                            <Text fw={500} c={"lightgray"}>{facilityData?.['name']}</Text>
                                             <Badge color={
                                                 facilityData ?
                                                     (facilityData['status'] === 'black' ? 'gray' : facilityData['status'])
@@ -234,7 +234,7 @@ const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
                                             setSelectedSupplyData(selected ? inventoryData[selected] : {});
                                         }}
                                         bg="rgba(0,0,0,0)"
-                                        styles={{ dropdown: { maxHeight: 200, overflowY: 'auto', backgroundColor: 'black', color: "lightgray" } }}
+                                        styles={{ dropdown: { maxHeight: 200, overflowY: 'auto', backgroundColor: 'black !important', color: 'lightgray'} }}
                                     />
                                     <RingCard
                                         title={selectedSupply}
