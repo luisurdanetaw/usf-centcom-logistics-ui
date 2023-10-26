@@ -6,6 +6,7 @@ import { useMemo } from 'react';
 import DataTable from "../data-table/DataTable";
 import {RingCard} from "../stats-ring-card/RingCard";
 import {ProgressCard} from "../progress-card/ProgressCard";
+import {TableSort} from "../table/TableSort";
 
 
 interface TmrPageProps {
@@ -20,8 +21,6 @@ const elements = [
     { number: 5, requester: 'Charlie', active: false, description: 'Element 5', position: 58, mass: 140.12, symbol: 'Ce', name: 'Cerium' },
 ];
 const TmrPage: React.FC<TmrPageProps> = ({ name }) => {
-
-
 
     return (
         <div>
@@ -42,7 +41,7 @@ const TmrPage: React.FC<TmrPageProps> = ({ name }) => {
                             <h2>TMRs </h2>
                         </Grid.Col>
                         <Grid.Col span={12}>
-                            <DataTable data={elements}/>
+                            <TableSort tmr={true}></TableSort>
                         </Grid.Col>
 
                     </Grid>

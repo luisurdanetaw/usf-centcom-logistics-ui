@@ -6,12 +6,12 @@ const stats = [
     { value: 76, label: 'Need Approval' },
 ];
 interface RingCardProps {
-    supply: string;
-    currentValue: number;
-    total: number;
+    title:string;
+    supplyClass:string;
+    cf:number;
+    so:number;
 }
-export function RingCard() {
-    const theme = useMantineTheme();
+export const RingCard:React.FC<RingCardProps> = ({title, supplyClass, so, cf}) => {
     const completed = 1887;
     const total = 2334;
     const items = stats.map((stat) => (
@@ -28,7 +28,7 @@ export function RingCard() {
             <div className={'inner'}>
                 <div>
                     <Text fz="xl" className={'label'}>
-                        Gas (class IX)
+                        {title} (class {supplyClass})
                     </Text>
                     <div>
                         <Text className={'lead'} mt={30}>
@@ -46,14 +46,14 @@ export function RingCard() {
                         roundCaps
                         thickness={6}
                         size={150}
-                        sections={[{ value: (completed / total) * 100, color: 'rgba(255, 208, 18, 1)' }]}
+                        sections={[{ value: (cf / so) * 100, color: 'rgba(255, 208, 18, 1)' }]}
                         label={
                             <div>
                                 <Text ta="center" fz="lg" className={'label'}>
-                                    {((completed / total) * 100).toFixed(0)}%
+                                    {((cf/ so) * 100).toFixed(0)}%
                                 </Text>
                                 <Text ta="center" fz="xs" c="dimmed">
-                                    Fill Rate
+                                    Consumption Factor
                                 </Text>
                             </div>
                         }

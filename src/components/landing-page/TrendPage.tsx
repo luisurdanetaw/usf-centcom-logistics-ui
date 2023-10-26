@@ -1,6 +1,6 @@
 import React from 'react';
 import {Container, Flex, SimpleGrid} from "@mantine/core";
-import './landing-page.scss'
+import './TrendPage.scss'
 import {NavbarSimple} from "../navbar-simple/NavbarSimple";
 import {TableSort} from '../table/TableSort'
 import {StatsCard} from "../stats-card/StatsCard";
@@ -10,7 +10,7 @@ interface HelloWorldProps {
     name: string;
 }
 
-export const LandingPage: React.FC<HelloWorldProps> = ({ name }) => {
+export const TrendPage: React.FC<HelloWorldProps> = ({ name }) => {
     const initialData = [
         { time: '2018-12-22', value: 32.51 },
         { time: '2018-12-23', value: 31.11 },
@@ -46,7 +46,7 @@ export const LandingPage: React.FC<HelloWorldProps> = ({ name }) => {
                              </div>
                              <div className={'graph-table-height'}>
                                  <h3 style={{color: "lightgray"}}>Top requesters</h3>
-                                 <TableSort/>
+                                 <TableSort tmr={false}/>
                              </div>
                          </SimpleGrid>
                      </div>

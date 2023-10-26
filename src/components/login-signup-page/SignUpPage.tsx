@@ -15,7 +15,10 @@ const SignUpPage: React.FC = () => {
 
         try{
             const response:any = await register(email, password);
-            response !== null ? navigate("/home") : navigate("/");
+            if(response !== null){
+                alert("Registration successful. Please login");
+                navigate("/")
+            }  else alert("invalid credentials");
         }
         catch (e) {
             alert("Invalid username and password combination");

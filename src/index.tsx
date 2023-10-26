@@ -12,8 +12,9 @@ import {
 import {createTheme, MantineProvider} from '@mantine/core';
 import LoginPage from "./components/login-signup-page/LoginPage";
 import SignUpPage from "./components/login-signup-page/SignUpPage";
-import HomePage from "./components/home-page/HomePage";
+import InventoryPage from "./components/inventory-page/InventoryPage";
 import TmrPage from "./components/tmr-page/TmrPage";
+import HomePage from "./components/home-page/HomePage";
 
 const theme = createTheme({
     /** Put your mantine theme override here */
@@ -25,16 +26,20 @@ const router = createBrowserRouter([
         element: <LoginPage/>,
     },
     {
+        path: "/mcb/home",
+        element: <HomePage/>,
+    },
+    {
         path: "/register",
         element: <SignUpPage/>,
     },
     {
-        path: "/home",
+        path: "/mcb/trends",
         element: <App/>,
     },
     {
-        path: "/mcb/home",
-        element: <HomePage name={"test"}/>,
+        path: "/mcb/inventory",
+        element: <InventoryPage name={"test"}/>,
     },
     {
         path: "/mcb/tmr",

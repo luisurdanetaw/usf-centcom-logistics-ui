@@ -1,12 +1,12 @@
 import React from 'react';
-import {LandingPage} from "./components/landing-page/LandingPage";
+import {TrendPage} from "./components/landing-page/TrendPage";
 
 import './App.css';
 
 function App() {
   return (
       <div>
-          <LandingPage name={'world'} />
+          <TrendPage name={'world'}/>
       </div>
   );
 }
