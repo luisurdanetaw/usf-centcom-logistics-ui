@@ -234,7 +234,7 @@ const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
                                             setSelectedSupplyData(selected ? inventoryData[selected] : {});
                                         }}
                                         bg="rgba(0,0,0,0)"
-                                        styles={{ dropdown: { maxHeight: 200, overflowY: 'auto', backgroundColor: 'black' } }}
+                                        styles={{ dropdown: { maxHeight: 200, overflowY: 'auto', backgroundColor: 'black', color: "lightgray" } }}
                                     />
                                     <RingCard
                                         title={selectedSupply}
