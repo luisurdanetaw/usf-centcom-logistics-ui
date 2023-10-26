@@ -45,15 +45,19 @@
       margin-top: 1em;
     }
     .right-header{
+      margin-top: 2.25em;
       color: lightgray;
       margin-bottom: 0.5em;
     }
     .select-menu{
       margin-top: 2.25em;
     }
+    .options{
+      background-color: red !important
+    }
     .option{
-      background-color: black;
-      color: lightgray;
+      background-color: black !important;
+      color: lightgray !important;
     }
     .option:hover{
       background-color:red !important;

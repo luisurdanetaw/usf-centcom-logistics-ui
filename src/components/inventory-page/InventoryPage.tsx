@@ -152,8 +152,8 @@ const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
 
                     <div className={"home"}>
                         <div className={"left"}>
-                            <h1>123rd Test Movement Control Batallion</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum auctor ante, eu tincidunt tortor pulvinar ut. Integer eget dapibus justo.  </p>
+                            <h1>Facility Information and Inventory</h1>
+                            <p>Movement Control Batallion Logistics - Facility lookup and inventory search page. </p>
                         </div>
 
                         <Grid gutter="xl" justify="center" align="center">
@@ -229,7 +229,7 @@ const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
                                     <h2 className={"right-header"}>Inventory</h2>
                                     <hr/>
                                     <Select
-                                        classNames={{option:'option'}}
+                                        classNames={{option:'option', options:'options'}}
                                         className={"select-menu"}
                                         label="Search supplies"
                                         data={options}
