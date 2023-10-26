@@ -36,7 +36,7 @@ const Layout: React.FC = () => {
                                src="https://logos-world.net/wp-content/uploads/2021/11/US-Army-Logo.png"
                         />
                         <Title order={1} style={{color: 'whitesmoke'}}>CENTCOM</Title>
-                        <small style={{color: 'whitesmoke'}}>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum felis a eros vehicula, eu fringilla dui volutpat."</small>
+                        <small style={{color: 'whitesmoke'}}>"Welcome to the CENTCOM Logistics Dashboard!"</small>
                     </div>
                 </Grid.Col>
                 <Grid.Col span={6}>

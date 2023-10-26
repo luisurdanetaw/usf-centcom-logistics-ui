@@ -1,10 +1,14 @@
-export const register = async (email:string, password:string): Promise<any> => {
+export const register = async (email:string, password:string, first_name:string, last_name:string, position:string, phone:string): Promise<any> => {
     console.log("Creating account...");
     const url = "http://127.0.0.1:8000/user/create";
 
     const requestBody = {
         email: email,
         password: password,
+        first_name: first_name,
+        last_name: last_name,
+        position: position,
+        phone: phone
     };
 
     const requestOptions = {

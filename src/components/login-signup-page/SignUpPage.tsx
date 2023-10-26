@@ -1,20 +1,28 @@
 import React, {useRef} from 'react';
 import {Button, Center, Container, Grid, Image, Title} from '@mantine/core';
 import {TextInput} from "@mantine/core";
-import "./login-page.scss"
+import "./signup-page.scss"
 import {useNavigate} from "react-router-dom";
 import {register} from "../../services/auth/register";
 const SignUpPage: React.FC = () => {
     const navigate = useNavigate();
     const emailInputRef = useRef<HTMLInputElement>(null);
     const passwordInputRef = useRef<HTMLInputElement>(null);
+    const firstNameInputRef = useRef<HTMLInputElement>(null);
+    const lastNameInputRef = useRef<HTMLInputElement>(null);
+    const positionInputRef = useRef<HTMLInputElement>(null);
+    const phoneInputRef = useRef<HTMLInputElement>(null);
 
     const onClickRegister = async () => {
         const email = emailInputRef.current?.value || "";
         const password = passwordInputRef.current?.value || "";
+        const firstName = firstNameInputRef.current?.value || "";
+        const lastName = lastNameInputRef.current?.value || "";
+        const position = positionInputRef.current?.value || "";
+        const phone = phoneInputRef.current?.value || "";
 
         try{
-            const response:any = await register(email, password);
+            const response:any = await register(email, password, firstName, lastName, position, phone);
             if(response !== null){
                 alert("Registration successful. Please login");
                 navigate("/")
@@ -39,7 +47,7 @@ const SignUpPage: React.FC = () => {
                                src="https://logos-world.net/wp-content/uploads/2021/11/US-Army-Logo.png"
                         />
                         <Title order={1} style={{color: 'whitesmoke'}}>CENTCOM</Title>
-                        <small style={{color: 'whitesmoke'}}>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum felis a eros vehicula, eu fringilla dui volutpat."</small>
+                        <small style={{color: 'whitesmoke'}}>"Welcome to the CENTCOM Logistics Dashboard!"</small>
                     </div>
                 </Grid.Col>
                 <Grid.Col span={6}>
@@ -47,9 +55,31 @@ const SignUpPage: React.FC = () => {
                         <Title className={"welcome-text"}order={1}>Create Account</Title>
                         <div className={"login-form-inputs"}>
                             <TextInput
+                                label="First Name"
+                                ref={firstNameInputRef}
+                                classNames={{input:'input', label:'label'}}
+                            />
+                            <TextInput
+                                label="Last Name"
+                                ref={lastNameInputRef}
+                                classNames={{input:'input', label:'label'}}
+                            />
+                            <TextInput
                                 label="Email"
                                 placeholder="example@army.mil"
                                 ref={emailInputRef}
+                                classNames={{input:'input', label:'label'}}
+                            />
+                            <TextInput
+                                label="Postion"
+                                placeholder="Logistics Personnel or Inventory Manager"
+                                ref={positionInputRef}
+                                classNames={{input:'input', label:'label'}}
+                            />
+                            <TextInput
+                                label="Phone"
+                                placeholder="123-456-6890"
+                                ref={phoneInputRef}
                                 classNames={{input:'input', label:'label'}}
                             />
                             <TextInput
