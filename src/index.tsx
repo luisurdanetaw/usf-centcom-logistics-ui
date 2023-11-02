@@ -15,6 +15,7 @@ import SignUpPage from "./components/login-signup-page/SignUpPage";
 import InventoryPage from "./components/inventory-page/InventoryPage";
 import TmrPage from "./components/tmr-page/TmrPage";
 import HomePage from "./components/home-page/HomePage";
+import SupplySearchPage from "./components/supply-search-page/SupplySearchPage";
 
 const theme = createTheme({
     /** Put your mantine theme override here */
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
     {
         path: "/mcb/trends",
         element: <App/>,
+    },
+    {
+        path: "/mcb/supplies",
+        element: <SupplySearchPage props={''}/>,
     },
     {
         path: "/mcb/inventory",

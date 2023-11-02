@@ -9,7 +9,7 @@ import {
     IconDatabaseImport,
     IconReceipt2,
     IconSwitchHorizontal,
-    IconLogout, IconHome, IconBuildingWarehouse, IconCheck, IconGraph,
+    IconLogout, IconHome, IconBuildingWarehouse, IconCheck, IconGraph, IconPackage,
 } from '@tabler/icons-react';
 import { MantineLogo } from '@mantine/ds';
 import  './navbar-simple.scss';
@@ -20,7 +20,7 @@ import {ImageComponent} from "../ImageComponent/ImageComponent";
 const data = [
     { link: '/mcb/inventory', label: 'Inventory', icon: IconBuildingWarehouse},
     { link: '/mcb/tmr', label: 'TMR', icon: IconReceipt2 },
-    { link: '/', label: 'Approvals', icon: IconCheck},
+    { link: '/mcb/supplies', label: 'Supply Search', icon: IconPackage},
     { link: '/mcb/trends', label: 'Analysis', icon: IconGraph},
 ];
 
@@ -66,7 +66,7 @@ export function NavbarSimple() {
                         src={"https://logos-world.net/wp-content/uploads/2021/11/US-Army-Logo.png"}
                     />
 
-                    <Title order={4} className='title'>CENTCOM Logistics</Title>
+                    <Title order={4} className='title'>M.O.V.E</Title>
                     <Code fw={700} style={{backgroundColor:'rgb(27 42 61)', color:'white'}}>v1.0.0</Code>
                 </Group>
                 {links}

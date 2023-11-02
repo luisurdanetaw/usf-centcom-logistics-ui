@@ -51,7 +51,7 @@ const SignUpPage: React.FC = () => {
                     </div>
                 </Grid.Col>
                 <Grid.Col span={6}>
-                    <div className={"right"}>
+                    <div className={"right-page"}>
                         <Title className={"welcome-text"}order={1}>Create Account</Title>
                         <div className={"login-form-inputs"}>
                             <TextInput
