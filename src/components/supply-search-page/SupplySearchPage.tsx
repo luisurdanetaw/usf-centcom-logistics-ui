@@ -142,7 +142,7 @@ const SupplySearchPage: React.FC<SupplySearchPageProps> = ({ props }) => {
                                     value={activePage}
                                     onChange={setPage}
                                     total={totalPages}
-                                    style={{display: totalResults === 0 ? 'none' : 'block'}}
+                                    style={{display: totalResults === 0 ? 'none' : 'block', marginLeft: '1em'}}
                                 />
                             </Grid.Col>
                         </Grid>
