@@ -1,5 +1,5 @@
-import React from 'react';
-import {Button, Card, ColorSwatch, Container, Flex, Grid, Select, Text} from "@mantine/core";
+import React, {useState} from 'react';
+import {Button, Card, ColorSwatch, Container, Flex, Grid, Group, Select, Text} from "@mantine/core";
 import './tmr-page.scss'
 import {NavbarSimple} from "../navbar-simple/NavbarSimple";
 import { useMemo } from 'react';
@@ -7,20 +7,66 @@ import DataTable from "../data-table/DataTable";
 import {RingCard} from "../stats-ring-card/RingCard";
 import {ProgressCard} from "../progress-card/ProgressCard";
 import {TableSort} from "../table/TableSort";
+import SearchResultsTable from "../../search-results-table/SearchResultsTable";
 
 
 interface TmrPageProps {
     name: string;
 }
 
-const elements = [
-    { number: 1, requester: 'John', active: true, description: 'Element 1', position: 6, mass: 12.011, symbol: 'C', name: 'Carbon' },
-    { number: 2, requester: 'Alice', active: false, description: 'Element 2', position: 7, mass: 14.007, symbol: 'N', name: 'Nitrogen' },
-    { number: 3, requester: 'Bob', active: true, description: 'Element 3', position: 39, mass: 88.906, symbol: 'Y', name: 'Yttrium' },
-    { number: 4, requester: 'Eve', active: true, description: 'Element 4', position: 56, mass: 137.33, symbol: 'Ba', name: 'Barium' },
-    { number: 5, requester: 'Charlie', active: false, description: 'Element 5', position: 58, mass: 140.12, symbol: 'Ce', name: 'Cerium' },
-];
+const data = [
+    {
+        name: 'Athena Weissnat',
+        company: 'Little - Rippin',
+        email: 'Elouise.Prohaska@yahoo.com',
+        received: '10/10/2023',
+        approved: '10/10/2023',
+        loaded: '10/12/2023',
+        shipped: '',
+        fulfilled: ''
+    },
+    {
+        name: 'Deangelo Runolfsson',
+        company: 'Greenfelder - Krajcik',
+        email: 'Kadin_Trantow87@yahoo.com',
+        received: '10/10/2023',
+        approved: '10/10/2023',
+        loaded: '10/12/2023',
+        shipped: '',
+        fulfilled: ''
+    },
+    {
+        name: 'Danny Carter',
+        company: 'Kohler and Sons',
+        email: 'Marina3@hotmail.com',
+        received: '10/10/2023',
+        approved: '10/10/2023',
+        loaded: '10/12/2023',
+        shipped: '',
+        fulfilled: ''
+    },
+    {
+        name: 'Trace Tremblay PhD',
+        company: 'Crona, Aufderhar and Senger',
+        email: 'Antonina.Pouros@yahoo.com',
+        received: '10/10/2023',
+        approved: '10/10/2023',
+        loaded: '10/12/2023',
+        shipped: '',
+        fulfilled: ''
+    },
+    {
+        name: 'Derek Dibbert',
+        company: 'Gottlieb LLC',
+        email: 'Abagail29@hotmail.com',
+        received: '10/10/2023',
+        approved: '10/10/2023',
+        loaded: '10/12/2023',
+        shipped: '',
+        fulfilled: ''
+    }];
 const TmrPage: React.FC<TmrPageProps> = ({ name }) => {
+    const [tmrData, setTmrData] = useState<any>([])
 
     return (
         <div>
@@ -38,10 +84,26 @@ const TmrPage: React.FC<TmrPageProps> = ({ name }) => {
                             <h1 >123rd Movement Control Batallion</h1>
                         </Grid.Col>
                         <Grid.Col span={12}>
-                            <h2>TMRs </h2>
+                            <h2>TMR Information </h2>
                         </Grid.Col>
                         <Grid.Col span={12}>
-                            <TableSort tmr={true}></TableSort>
+                            <SearchResultsTable
+                                searchResults={data}
+                                rowContent={
+                                    (result) => {
+                                        return (
+                                            <React.Fragment>
+                                                <Group justify="space-between" mt="md" mb="xs">
+                                                    <Text fw={500} c={"lightgray"}>Requester: {result.name}</Text>
+                                                </Group>
+                                                <Text size="sm" c="dimmed">Quantity: {result.email}</Text>
+                                            </React.Fragment>
+                                        )
+                                    }
+
+                                }
+                                withDrawer={true}
+                            />
                         </Grid.Col>
 
                     </Grid>
