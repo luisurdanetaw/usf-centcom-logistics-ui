@@ -92,6 +92,7 @@ const SupplySearchPage: React.FC<SupplySearchPageProps> = ({ props }) => {
                                 <div className="left">
                                     <h5 style={{display: totalResults === 0 ? 'none':'block'}}>Query results for {query}: {totalResults} found</h5>
                                     <SearchResultsTable
+                                        height="50vh"
                                         searchResults={searchResults}
                                         rowButton={
                                                 <Button

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Card, ColorSwatch, Container, Flex, Grid, Group, Select, Text} from "@mantine/core";
 import './tmr-page.scss'
 import {NavbarSimple} from "../navbar-simple/NavbarSimple";
@@ -8,65 +8,29 @@ import {RingCard} from "../stats-ring-card/RingCard";
 import {ProgressCard} from "../progress-card/ProgressCard";
 import {TableSort} from "../table/TableSort";
 import SearchResultsTable from "../../search-results-table/SearchResultsTable";
+import {getAllTmrsByFacility} from "../../services/api/tmr";
+import {searchFacilityBySupplies} from "../../services/api/facility";
 
 
 interface TmrPageProps {
     name: string;
 }
 
-const data = [
-    {
-        name: 'Athena Weissnat',
-        company: 'Little - Rippin',
-        email: 'Elouise.Prohaska@yahoo.com',
-        received: '10/10/2023',
-        approved: '10/10/2023',
-        loaded: '10/12/2023',
-        shipped: '',
-        fulfilled: ''
-    },
-    {
-        name: 'Deangelo Runolfsson',
-        company: 'Greenfelder - Krajcik',
-        email: 'Kadin_Trantow87@yahoo.com',
-        received: '10/10/2023',
-        approved: '10/10/2023',
-        loaded: '10/12/2023',
-        shipped: '',
-        fulfilled: ''
-    },
-    {
-        name: 'Danny Carter',
-        company: 'Kohler and Sons',
-        email: 'Marina3@hotmail.com',
-        received: '10/10/2023',
-        approved: '10/10/2023',
-        loaded: '10/12/2023',
-        shipped: '',
-        fulfilled: ''
-    },
-    {
-        name: 'Trace Tremblay PhD',
-        company: 'Crona, Aufderhar and Senger',
-        email: 'Antonina.Pouros@yahoo.com',
-        received: '10/10/2023',
-        approved: '10/10/2023',
-        loaded: '10/12/2023',
-        shipped: '',
-        fulfilled: ''
-    },
-    {
-        name: 'Derek Dibbert',
-        company: 'Gottlieb LLC',
-        email: 'Abagail29@hotmail.com',
-        received: '10/10/2023',
-        approved: '10/10/2023',
-        loaded: '10/12/2023',
-        shipped: '',
-        fulfilled: ''
-    }];
 const TmrPage: React.FC<TmrPageProps> = ({ name }) => {
-    const [tmrData, setTmrData] = useState<any>([])
+    const [tmrData, setTmrData] = useState<any[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const tmrs = await getAllTmrsByFacility('1');
+                setTmrData(tmrs);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <div>
@@ -81,22 +45,22 @@ const TmrPage: React.FC<TmrPageProps> = ({ name }) => {
                     <NavbarSimple/>
                     <Grid style={{marginLeft: '2em'}} gutter="xl" justify="center" align="center">
                         <Grid.Col span={12}>
-                            <h1 >123rd Movement Control Batallion</h1>
-                        </Grid.Col>
-                        <Grid.Col span={12}>
-                            <h2>TMR Information </h2>
+                            <h1 style={{width: '100vw'}}>TMR Information</h1>
                         </Grid.Col>
                         <Grid.Col span={12}>
                             <SearchResultsTable
-                                searchResults={data}
+                                height="75vh"
+                                searchResults={tmrData}
                                 rowContent={
                                     (result) => {
                                         return (
                                             <React.Fragment>
                                                 <Group justify="space-between" mt="md" mb="xs">
-                                                    <Text fw={500} c={"lightgray"}>Requester: {result.name}</Text>
+                                                    <Text fw={500} c={"lightgray"}>Requester: {result.requestor}</Text>
                                                 </Group>
-                                                <Text size="sm" c="dimmed">Quantity: {result.email}</Text>
+                                                <Text size="sm" c="dimmed">Status: {result.status}</Text>
+                                                <Text size="sm" c="dimmed">Cargo Description: {result.cargo_description}</Text>
+                                                <Text size="sm" c="dimmed">Email: {result.email}</Text>
                                             </React.Fragment>
                                         )
                                     }
