@@ -1,0 +1,36 @@
+
+.label{
+  color: lightgray;
+  margin-bottom: 0.5em;
+}
+.input {
+  color:lightgray;
+  background-color: black;
+  margin-bottom: 0.75em;
+  max-width: 75%;
+}
+.input:focus{
+  border: 2px solid rgba(255, 234, 0, 0.7);
+}
+
+.login-button {
+  margin-top: 20px;
+  background-color: rgba(255, 234, 0, 0.7) !important;
+  color: whitesmoke;
+  margin-right: 10px;
+}
+
+.signup-button {
+  margin-top: 10px;
+  border-color: rgba(255, 234, 0, 0.7) !important;
+  color: whitesmoke;
+  font-weight: 500;
+}
+
+.grow-on-hover {
+  transition: transform 0.2s; /* Add a smooth transition for scaling */
+}
+
+.grow-on-hover:hover {
+  transform: scale(1.1); /* Scale the button on hover */
+}

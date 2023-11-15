@@ -9,7 +9,15 @@ import {
     IconDatabaseImport,
     IconReceipt2,
     IconSwitchHorizontal,
-    IconLogout, IconHome, IconBuildingWarehouse, IconCheck, IconGraph, IconPackage,
+    IconLogout,
+    IconHome,
+    IconBuildingWarehouse,
+    IconCheck,
+    IconGraph,
+    IconPackage,
+    IconForms,
+    IconDatabase,
+    IconExchange, IconBox, IconClipboard, IconContainer,
 } from '@tabler/icons-react';
 import { MantineLogo } from '@mantine/ds';
 import  './navbar-simple.scss';
@@ -22,6 +30,9 @@ const data = [
     { link: '/mcb/tmr', label: 'TMR', icon: IconReceipt2 },
     { link: '/mcb/supplies', label: 'Supply Search', icon: IconPackage},
     { link: '/mcb/trends', label: 'Analysis', icon: IconGraph},
+    { link: '/mcb/request', label: 'Request', icon: IconClipboard},
+    { link: '/mcb/inventoryData', label: 'Inventory Data Form', icon: IconDatabase}
+
 ];
 
 export function NavbarSimple() {
