@@ -1,6 +1,7 @@
 import {Button, Card, Drawer, Grid, Group, ScrollArea, Text, Timeline} from "@mantine/core";
 import React, {useState} from "react";
 import {useDisclosure} from "@mantine/hooks";
+import {capitalizeFirstLetter, removeUnderscoresAndCapitalize} from "../services/utilities/strings";
 
 interface SearchResultTableProps {
     searchResults: any [];
@@ -9,16 +10,8 @@ interface SearchResultTableProps {
     withDrawer:boolean;
     height:string
 }
-function removeUnderscoresAndCapitalize(inputString: string): string {
-    // Split the input string by underscores and capitalize each word
-    const words: string[] = inputString.split('_').map((word: string) => {
-        // Capitalize the first letter and make the rest lowercase
-        return word;
-    });
 
-    const res = words.join(" ");
-    return res.charAt(0).toUpperCase() + res.slice(1)
-}
+
 const SearchResultsTable:React.FC<SearchResultTableProps> = ({height, searchResults, rowButton, rowContent, withDrawer}) => {
     const [drawerChildren, setDrawerChildren] = useState(<div></div>);
     const [opened, { open, close }] = useDisclosure(false);
@@ -63,7 +56,7 @@ const SearchResultsTable:React.FC<SearchResultTableProps> = ({height, searchResu
                 statusCollection.includes(key) ? (
                     <Timeline.Item key={i} title={getKeyTitle(key)} className={'bullet'} lineVariant={['ald','rld'].includes(key) ? "dashed" : undefined}>
                         <Text c="dimmed" size="sm">
-                            {key === 'rld' || key === 'rdd' ? "Estimated " + (value as string) : (value as string)}
+                            {key === 'rld' || key === 'rdd' ? "Estimated " + capitalizeFirstLetter((value as string)) : capitalizeFirstLetter((value as string))}
                         </Text>
                         {value !== null ? <Text size="xs" mt={4}>12 minutes ago</Text> : null}
                     </Timeline.Item>

@@ -2,14 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {Button, Card, ColorSwatch, Container, Flex, Grid, Group, Select, Text} from "@mantine/core";
 import './tmr-page.scss'
 import {NavbarSimple} from "../navbar-simple/NavbarSimple";
-import { useMemo } from 'react';
-import DataTable from "../data-table/DataTable";
-import {RingCard} from "../stats-ring-card/RingCard";
-import {ProgressCard} from "../progress-card/ProgressCard";
-import {TableSort} from "../table/TableSort";
 import SearchResultsTable from "../../search-results-table/SearchResultsTable";
 import {getAllTmrsByFacility} from "../../services/api/tmr";
 import {searchFacilityBySupplies} from "../../services/api/facility";
+import {capitalizeFirstLetter} from "../../services/utilities/strings";
+
 
 
 interface TmrPageProps {
@@ -56,7 +53,7 @@ const TmrPage: React.FC<TmrPageProps> = ({ name }) => {
                                         return (
                                             <React.Fragment>
                                                 <Group justify="space-between" mt="md" mb="xs">
-                                                    <Text fw={500} c={"lightgray"}>Requester: {result.requestor}</Text>
+                                                    <Text fw={500} c={"lightgray"}>Requester: {capitalizeFirstLetter(result.requestor)}</Text>
                                                 </Group>
                                                 <Text size="sm" c="dimmed">Status: {result.status}</Text>
                                                 <Text size="sm" c="dimmed">Cargo Description: {result.cargo_description}</Text>
