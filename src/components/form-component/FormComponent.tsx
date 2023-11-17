@@ -5,6 +5,7 @@ import {
 } from "@mantine/core";
 import './form-component.scss'
 import {sendForm} from "../../services/api/form";
+import {removeUnderscoresAndCapitalize} from "../../services/utilities/strings";
 
 
 interface FormComponentProps {
@@ -22,10 +23,36 @@ const FormComponent: React.FC<FormComponentProps> = ({ fields, url }) => {
             [fieldName]: value,
         }));
     };
+/*
+id: int = 0
+    requestor_id: Optional[int] = None
+    cargo_description: Optional[str] = None
+    quantity: Optional[str] = None
+    units: Optional[str] = None
+    id_num: Optional[str] = None
+    requestor: Optional[str] = None
+    date_received: Optional[str] = None
 
+ */
 
     const onSubmit = async () => {
-        const params = { ...inputValues, facilityId: localStorage.getItem('facility-id')};
+        const currentDate: Date = new Date();
+
+// To get the current date as a string
+        const currentDateAsString: string = currentDate.toISOString().split('T')[0];
+        const params = (fields.length > 3)  ?
+            {
+                ...inputValues,
+                facility_id: localStorage.getItem('facility-id'),
+                requestor: 'luis',
+                requestor_id: '1',
+                date_received: currentDateAsString
+            } :
+            {
+                ...inputValues,
+                facility_id: '1'
+            }
+
         const success = await sendForm(url, params);
         success ? alert("Inventory successfully updated") : alert("Unable to update inventory");
     }
@@ -39,7 +66,7 @@ const FormComponent: React.FC<FormComponentProps> = ({ fields, url }) => {
                         <TextInput
                             key={i}
                             className={"input"}
-                            label={field}
+                            label={removeUnderscoresAndCapitalize(field)}
                             value={inputValues[field] || ''}
                             onChange={(e) => handleInputChange(field, e.target.value)}
                             classNames={{input:'input', label:'label'}}

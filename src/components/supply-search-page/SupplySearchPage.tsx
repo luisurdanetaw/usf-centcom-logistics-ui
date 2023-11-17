@@ -99,7 +99,7 @@ const SupplySearchPage: React.FC<SupplySearchPageProps> = ({ props }) => {
                                                     className='grow-on-hover'
                                                     variant="light" color="lightgray"
                                                     fullWidth mt="md" radius="md"
-                                                    onClick={() => console.log("a")}
+                                                    onClick={() => navigate('/mcb/request')}
                                                     style={{backgroundColor: 'rgba(255, 208, 18, 0.6)', maxWidth: '30%', marginLeft:'auto', marginRight: '1em'}}
                                                 >
                                                     Request Supplies

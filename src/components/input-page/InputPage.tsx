@@ -43,8 +43,8 @@ const InputPage: React.FC<InputPageProps> = ({ props }) => {
                             <Grid.Col span={12}>
                                 <div className={"left"}>
                                     <FormComponent
-                                        fields={["Supply", "Quantity"]}
-                                        url={""}
+                                        fields={["item_name", "quantity"]}
+                                        url={"http://127.0.0.1:8000/tmr/update"}
                                     />
                                 </div>
                             </Grid.Col>
