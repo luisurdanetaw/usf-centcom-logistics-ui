@@ -76,13 +76,13 @@ const SignUpPage: React.FC = () => {
                     <div className={"right-page"}>
                         <Title className={"welcome-text"}order={1}>Create Account</Title>
                         <div className={"login-form-inputs"}>
-                        <Box maw={340} mx="auto">
-                            <form onSubmit={form.onSubmit((values) => console.log(values))}>
+                            <form onSubmit={form.onSubmit((values) => console.log(values))} style={{width:'600px'}}>
                                 <TextInput
                                     label="First Name"
                                     ref={firstNameInputRef}
                                     withAsterisk
                                     classNames={{input:'input', label:'label'}}
+                                    style={{width: '100% !important'}}
                                     {...form.getInputProps('firstName')}
                                 />
                                 <TextInput
@@ -127,7 +127,7 @@ const SignUpPage: React.FC = () => {
                             <Button variant="filled" className={"login-button grow-on-hover"} onClick={onClickRegister} type="submit">Sign Up</Button>
                             </div>
                             </form>
-                        </Box>
+
                         </div>
                     </div>
                 </Grid.Col>
