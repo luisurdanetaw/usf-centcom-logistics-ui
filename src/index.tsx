@@ -14,7 +14,6 @@ import LoginPage from "./components/login-signup-page/LoginPage";
 import SignUpPage from "./components/login-signup-page/SignUpPage";
 import InventoryPage from "./components/inventory-page/InventoryPage";
 import TmrPage from "./components/tmr-page/TmrPage";
-import HomePage from "./components/home-page/HomePage";
 import SupplySearchPage from "./components/supply-search-page/SupplySearchPage";
 import RequestPage from "./components/request-page/RequestPage";
 import InputPage from "./components/input-page/InputPage";
@@ -27,10 +26,6 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <LoginPage/>,
-    },
-    {
-        path: "/mcb/home",
-        element: <HomePage/>,
     },
     {
         path: "/register",

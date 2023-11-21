@@ -1,16 +1,38 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Container, Flex, SimpleGrid} from "@mantine/core";
 import './TrendPage.scss'
 import {NavbarSimple} from "../navbar-simple/NavbarSimple";
 import {TableSort} from '../table/TableSort'
-import {StatsCard} from "../stats-card/StatsCard";
+import {StatsCards} from "../stats-card/StatsCards";
 import {LineChart} from "../line-chart/LineChart";
+import fetchTrends from "../../services/api/trends";
+import {StatsLoader} from "../stats-card/StatsLoader";
 
 interface HelloWorldProps {
     name: string;
 }
 
 export const TrendPage: React.FC<HelloWorldProps> = ({ name }) => {
+    const [trendData, setTrendData] = useState<any>(null)
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await fetchTrends('1');
+                setTrendData(data);
+            } catch (error) {
+                console.error('Error fetching trends:', error);
+            } finally {
+                setLoading(false);
+                console.log(trendData);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+
     const initialData = [
         { time: '2018-12-22', value: 32.51 },
         { time: '2018-12-23', value: 31.11 },
@@ -38,10 +60,12 @@ export const TrendPage: React.FC<HelloWorldProps> = ({ name }) => {
                      <div>
                          <h2 style={{marginLeft: '50px', marginTop: '20px'}}>123rd Test Movement Control Battallion</h2>
                          <p style={{marginLeft: '50px'}}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec efficitur tortor. In quis mi nec nunc viverra ultricies. Vivamus euismod tellus non volutpat aliquet. Curabitur tincidunt vitae odio et eleifend. Integer posuere ipsum in nisl varius, ut lacinia lorem volutpat. Nunc facilisis tristique est, id pharetra justo rhoncus ut.</p>
-                         <StatsCard/>
+                         {
+                             loading ?  <StatsLoader/> : <StatsCards trends={trendData}/>
+                         }
                          <SimpleGrid cols={2}>
                              <div className={'graph-table-height'}>
-                                 <h3>TMRs Completed</h3>
+                                 <h3>Supply Consumption</h3>
                                  <LineChart data={initialData}/>
                              </div>
                              <div className={'graph-table-height'}>

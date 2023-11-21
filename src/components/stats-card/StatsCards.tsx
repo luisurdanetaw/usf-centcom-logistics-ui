@@ -1,6 +1,9 @@
 import { Group, Paper, Text, ThemeIcon, SimpleGrid } from '@mantine/core';
 import { IconArrowUpRight, IconArrowDownRight } from '@tabler/icons-react';
 import './stats-card.scss';
+import React from "react";
+import {TrendData} from "../../services/api/trends";
+import {splitCamelCaseAndCapitalize} from "../../services/utilities/strings";
 
 const data = [
     { title: 'TMRs Completed ', value: '209', diff: 34 },
@@ -9,38 +12,45 @@ const data = [
     { title: 'Delayed shipments', value: '21', diff: -12 },
 ];
 
-export function StatsCard() {
-    const stats = data.map((stat) => {
-        const DiffIcon = stat.diff > 0 ? IconArrowUpRight : IconArrowDownRight;
+interface StatsCardsProps{
+    trends: TrendData;
+}
+export const StatsCards: React.FC<StatsCardsProps> = ({ trends }) =>  {
+    const stats = Object.entries(trends).map(([key, data], i) => {
+        const values: any = Object.values(data);
+        const DiffIcon = values[2] > 0 ? IconArrowUpRight : IconArrowDownRight;
 
         return (
-            <Paper withBorder p="sm" radius="sm" key={stat.title} className={'no-background'}>
+            <Paper withBorder p="sm" radius="sm" key={i} className={'no-background'}>
                 <Group justify="apart">
                     <div>
                         <Text c="dimmed" tt="uppercase" fw={700} fz="xs" className='label'>
-                            {stat.title}
+                            {splitCamelCaseAndCapitalize(key)}
                         </Text>
                         <Text fw={700} fz="lg">
-                            {stat.value}
+                            {key === 'shipmentSpeed' ? values[0] + " days" : values[0]}
                         </Text>
+
+
                     </div>
                     <ThemeIcon
                         color="gray"
                         variant="light"
                         style={{
-                            color: stat.diff > 0 ? 'var(--mantine-color-teal-6)' : 'var(--mantine-color-red-6)',
+                            color: values[2] > 0 ? 'var(--mantine-color-teal-6)' : 'var(--mantine-color-red-6)',
                         }}
                         size={32} // Adjust the size to make it smaller
                         radius="sm" // Adjust the radius to make it smaller
+                        className={'sendRight'}
                     >
-                        <DiffIcon size="1.4rem" stroke={1.5}/>
+                        <DiffIcon size="1.4rem" stroke={1.5} />
                     </ThemeIcon>
                 </Group>
                 <Text c="dimmed" fz="xs" mt="sm"> {/* Adjust the font size to make it smaller */}
-                    <Text component="span" c={stat.diff > 0 ? 'teal' : 'red'} fw={700}>
-                        {stat.diff}%
+                    <Text component="span" c={values[2] > 0 ? 'teal' : 'red'} fw={700}>
+                        {values[1]}%
                     </Text>{' '}
-                    {stat.diff > 0 ? 'increase' : 'decrease'} compared to last month
+                    {values[2] > 0 ? 'increase' : 'decrease'} compared to last month
                 </Text>
             </Paper>
         );
