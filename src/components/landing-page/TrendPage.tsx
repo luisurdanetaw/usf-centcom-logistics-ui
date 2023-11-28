@@ -15,50 +15,55 @@ import {capitalizeFirstLetter} from "../../services/utilities/strings";
 interface HelloWorldProps {
     name: string;
 }
+const countries  = [
+    'Israel - ISR',
+    'Denmark - DNK',
+    'Australia - AUS',
+    'Egypt: EGY',
+    'Kyrgyz Republic - KGZ',
+    'Pakistan - PAK',
+    'Italy - ITA',
+    'Japan - JPN',
+    'Oman - OMN',
+    'Afghanistan - AFG',
+    'Iran - IRN',
+    'Syria - SYR',
+    'Kazakhstan - KAZ',
+    'Kuwait - KWT',
+    'Bahrain - BHR',
+    'Qatar - QAT',
+    'Jordan - JOR',
+    'Lebanon - LBN'
+];
+
 
 export const TrendPage: React.FC<HelloWorldProps> = ({ name }) => {
     const [trendData, setTrendData] = useState<any>(null)
+    const [country, setCountry] = useState<string>("USA")
     const [topRequestors, setTopRequestors] = useState<any>([["", 1]])
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await fetchTrends('USA');
-                const { topRequestors, ...dataWithoutTopRequestors } = data;
-                setTrendData(dataWithoutTopRequestors);
-                setTopRequestors(topRequestors);
-            } catch (error) {
-                console.error('Error fetching trends:', error);
-            } finally {
-                setLoading(false);
-                console.log(trendData);
-            }
-        };
+    const fetchData = async () => {
+        try {
+            const data = await fetchTrends(country);
+            const { topRequestors, ...dataWithoutTopRequestors } = data;
+            setTrendData(dataWithoutTopRequestors);
+            setTopRequestors(topRequestors);
+        } catch (error) {
+            console.error('Error fetching trends:', error);
+        } finally {
+            setLoading(false);
+            console.log(trendData);
+        }
+    };
 
+    useEffect(() => {
         fetchData();
     }, []);
 
-    const data  = [
-        'Israel - ISR',
-        'Denmark - DNK',
-        'Australia - AUS',
-        'Egypt: EGY',
-        'Kyrgyz Republic - KGZ',
-        'Pakistan - PAK',
-        'Italy - ITA',
-        'Japan - JPN',
-        'Oman - OMN',
-        'Afghanistan - AFG',
-        'Iran - IRN',
-        'Syria - SYR',
-        'Kazakhstan - KAZ',
-        'Kuwait - KWT',
-        'Bahrain - BHR',
-        'Qatar - QAT',
-        'Jordan - JOR',
-        'Lebanon - LBN'
-    ];
+    useEffect(() => {
+        fetchData()
+    }, [country])
 
     return (
         <div>
@@ -78,11 +83,15 @@ export const TrendPage: React.FC<HelloWorldProps> = ({ name }) => {
                          <Select
                             label="Select Country"
                             placeholder="Pick a Country"
-                            data={data}
+                            data={countries}
                             withScrollArea={false}
                             styles={{ dropdown: { maxHeight: 200, overflowY: 'auto', backgroundColor: 'black', color: 'lightgray', }, input:{backgroundColor: 'black', color: 'lightgray'}}}
                             mt="md"
                             style={{marginLeft: '3em', maxWidth: '300px'}}
+                            onChange={(selected) => {
+                                setCountry(selected?.slice(-3) ?? "");
+                                console.log("Trend country changed: ", selected)
+                            }}
                          />
                          {
                              loading ?  <StatsLoader/> : <StatsCards trends={trendData}/>
