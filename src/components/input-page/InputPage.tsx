@@ -41,12 +41,6 @@ const InputPage: React.FC<InputPageProps> = ({ props }) => {
                         </div>
 
                         <Grid gutter="xl" justify="center" align="center">
-                            <Grid.Col span ={6}>
-                                <BarChart props={null}/>
-                            </Grid.Col>
-                            <Grid.Col span ={6}>
-                                <BarChart props={null}/>
-                            </Grid.Col>
                             <Grid.Col span={12}>
                                 <div className={"left"}>
                                     <FormComponent

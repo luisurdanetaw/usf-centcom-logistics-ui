@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Container, Flex, SimpleGrid} from "@mantine/core";
+import {Container, Flex, Grid, SimpleGrid} from "@mantine/core";
 import './TrendPage.scss'
 import {NavbarSimple} from "../navbar-simple/NavbarSimple";
 import {TableSort} from '../table/TableSort'
@@ -7,6 +7,7 @@ import {StatsCards} from "../stats-card/StatsCards";
 import {LineChart} from "../line-chart/LineChart";
 import fetchTrends from "../../services/api/trends";
 import {StatsLoader} from "../stats-card/StatsLoader";
+import {BarChart} from "../bar-chart/BarChart";
 
 interface HelloWorldProps {
     name: string;
@@ -66,7 +67,7 @@ export const TrendPage: React.FC<HelloWorldProps> = ({ name }) => {
                          <SimpleGrid cols={2}>
                              <div className={'graph-table-height'}>
                                  <h3>Supply Consumption</h3>
-                                 <LineChart data={initialData}/>
+                                 <BarChart props={null}/>
                              </div>
                              <div className={'graph-table-height'}>
                                  <h3 style={{color: "lightgray"}}>Top requesters</h3>
