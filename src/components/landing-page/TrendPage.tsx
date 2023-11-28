@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Container, Flex, Grid, SimpleGrid} from "@mantine/core";
+import {Card, Container, Flex, Grid, Group, Loader, Paper, ScrollArea, SimpleGrid, Text} from "@mantine/core";
 import './TrendPage.scss'
 import {NavbarSimple} from "../navbar-simple/NavbarSimple";
 import {TableSort} from '../table/TableSort'
@@ -9,6 +9,8 @@ import fetchTrends from "../../services/api/trends";
 import {StatsLoader} from "../stats-card/StatsLoader";
 import {BarChart} from "../bar-chart/BarChart";
 import { Select } from '@mantine/core';
+import SearchResultsTable from "../../search-results-table/SearchResultsTable";
+import {capitalizeFirstLetter} from "../../services/utilities/strings";
 
 interface HelloWorldProps {
     name: string;
@@ -16,13 +18,16 @@ interface HelloWorldProps {
 
 export const TrendPage: React.FC<HelloWorldProps> = ({ name }) => {
     const [trendData, setTrendData] = useState<any>(null)
+    const [topRequestors, setTopRequestors] = useState<any>([["", 1]])
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await fetchTrends('1');
-                setTrendData(data);
+                const data = await fetchTrends('USA');
+                const { topRequestors, ...dataWithoutTopRequestors } = data;
+                setTrendData(dataWithoutTopRequestors);
+                setTopRequestors(topRequestors);
             } catch (error) {
                 console.error('Error fetching trends:', error);
             } finally {
@@ -33,20 +38,6 @@ export const TrendPage: React.FC<HelloWorldProps> = ({ name }) => {
 
         fetchData();
     }, []);
-
-
-    const initialData = [
-        { time: '2018-12-22', value: 32.51 },
-        { time: '2018-12-23', value: 31.11 },
-        { time: '2018-12-24', value: 27.02 },
-        { time: '2018-12-25', value: 27.32 },
-        { time: '2018-12-26', value: 25.17 },
-        { time: '2018-12-27', value: 28.89 },
-        { time: '2018-12-28', value: 25.46 },
-        { time: '2018-12-29', value: 23.92 },
-        { time: '2018-12-30', value: 22.68 },
-        { time: '2018-12-31', value: 22.67 },
-    ];
 
     const data  = [
         'Israel - ISR',
@@ -103,7 +94,35 @@ export const TrendPage: React.FC<HelloWorldProps> = ({ name }) => {
                              </div>
                              <div className={'graph-table-height'}>
                                  <h3 style={{color: "lightgray"}}>Top requesters</h3>
-                                 <TableSort tmr={false}/>
+                                 {
+                                     <ScrollArea h={250}>
+                                         {
+                                             loading ?
+                                                 <Paper p="xl" radius="xl" className={'no-background'}>
+                                                     <Group justify="apart" style={{paddingLeft: '10em', paddingTop: '5em'}}>
+                                                         <Loader color='yellow' size={100}/>
+                                                     </Group>
+                                                 </Paper>
+                                                 : <SearchResultsTable
+                                                     height="100%"
+                                                     searchResults={topRequestors}
+                                                     rowContent={
+                                                         (result) => {
+                                                             return (
+                                                                 <React.Fragment>
+                                                                     <Group justify="space-between" mt="xs" mb="xs">
+                                                                         <Text fw={500} c={"lightgray"}>{capitalizeFirstLetter(result[0])}</Text>
+                                                                     </Group>
+                                                                 </React.Fragment>
+                                                             )
+                                                         }
+
+                                                     }
+                                                     withDrawer={false}
+                                                 />
+                                         }
+                                     </ScrollArea>
+                                 }
                              </div>
                          </SimpleGrid>
                      </div>
