@@ -74,20 +74,20 @@ export const TrendPage: React.FC<HelloWorldProps> = ({ name }) => {
                      <div>
                          <h2 style={{marginLeft: '50px', marginTop: '20px'}}>123rd Test Movement Control Battallion</h2>
                          <p style={{marginLeft: '50px'}}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec efficitur tortor. In quis mi nec nunc viverra ultricies. Vivamus euismod tellus non volutpat aliquet. Curabitur tincidunt vitae odio et eleifend. Integer posuere ipsum in nisl varius, ut lacinia lorem volutpat. Nunc facilisis tristique est, id pharetra justo rhoncus ut.</p>
-                         {
-                            <Select
+
+                         <Select
                             label="Select Country"
                             placeholder="Pick a Country"
                             data={data}
                             withScrollArea={false}
                             styles={{ dropdown: { maxHeight: 200, overflowY: 'auto', backgroundColor: 'black', color: 'lightgray', }, input:{backgroundColor: 'black', color: 'lightgray'}}}
                             mt="md"
-                            />
-                         }
+                            style={{marginLeft: '3em', maxWidth: '300px'}}
+                         />
                          {
                              loading ?  <StatsLoader/> : <StatsCards trends={trendData}/>
                          }
-                         <SimpleGrid cols={2}>
+                         <SimpleGrid cols={2} style={{marginLeft: '0.5em'}}>
                              <div className={'graph-table-height'}>
                                  <h3>Supply Consumption</h3>
                                  <BarChart props={null}/>

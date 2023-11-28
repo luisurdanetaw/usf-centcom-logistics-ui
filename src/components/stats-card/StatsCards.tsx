@@ -57,7 +57,7 @@ export const StatsCards: React.FC<StatsCardsProps> = ({ trends }) =>  {
     });
 
     return (
-        <div className='root'>
+        <div className='root' style={{paddingBottom: '1.5em'}}>
             <SimpleGrid cols={{ base: 1, sm: 4 }}>{stats}</SimpleGrid>
         </div>
     );
