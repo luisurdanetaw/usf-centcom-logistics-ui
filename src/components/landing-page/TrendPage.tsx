@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Container, Flex, Grid, SimpleGrid} from "@mantine/core";
+import {Card, Container, Flex, Grid, Group, ScrollArea, SimpleGrid, Text} from "@mantine/core";
 import './TrendPage.scss'
 import {NavbarSimple} from "../navbar-simple/NavbarSimple";
 import {TableSort} from '../table/TableSort'
@@ -8,6 +8,8 @@ import {LineChart} from "../line-chart/LineChart";
 import fetchTrends from "../../services/api/trends";
 import {StatsLoader} from "../stats-card/StatsLoader";
 import {BarChart} from "../bar-chart/BarChart";
+import SearchResultsTable from "../../search-results-table/SearchResultsTable";
+import {capitalizeFirstLetter} from "../../services/utilities/strings";
 
 interface HelloWorldProps {
     name: string;
@@ -15,13 +17,16 @@ interface HelloWorldProps {
 
 export const TrendPage: React.FC<HelloWorldProps> = ({ name }) => {
     const [trendData, setTrendData] = useState<any>(null)
+    const [topRequestors, setTopRequestors] = useState<any>(null)
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await fetchTrends('1');
-                setTrendData(data);
+                const data = await fetchTrends('USA');
+                const { topRequestors, ...dataWithoutTopRequestors } = data;
+                setTrendData(dataWithoutTopRequestors);
+                setTopRequestors(topRequestors);
             } catch (error) {
                 console.error('Error fetching trends:', error);
             } finally {
@@ -47,6 +52,7 @@ export const TrendPage: React.FC<HelloWorldProps> = ({ name }) => {
         { time: '2018-12-31', value: 22.67 },
     ];
 
+
     return (
         <div>
              <Container className='landing-page-container' fluid>
@@ -71,7 +77,27 @@ export const TrendPage: React.FC<HelloWorldProps> = ({ name }) => {
                              </div>
                              <div className={'graph-table-height'}>
                                  <h3 style={{color: "lightgray"}}>Top requesters</h3>
-                                 <TableSort tmr={false}/>
+                                 {
+                                     <ScrollArea h={250}>
+                                         <SearchResultsTable
+                                             height="100%"
+                                             searchResults={topRequestors}
+                                             rowContent={
+                                                 (result) => {
+                                                     return (
+                                                         <React.Fragment>
+                                                             <Group justify="space-between" mt="xs" mb="xs">
+                                                                 <Text fw={500} c={"lightgray"}>{capitalizeFirstLetter(result[0])}</Text>
+                                                             </Group>
+                                                         </React.Fragment>
+                                                     )
+                                                 }
+
+                                             }
+                                             withDrawer={false}
+                                         />
+                                     </ScrollArea>
+                                 }
                              </div>
                          </SimpleGrid>
                      </div>
