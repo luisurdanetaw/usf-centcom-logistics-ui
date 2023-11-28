@@ -8,6 +8,7 @@ import {LineChart} from "../line-chart/LineChart";
 import fetchTrends from "../../services/api/trends";
 import {StatsLoader} from "../stats-card/StatsLoader";
 import {BarChart} from "../bar-chart/BarChart";
+import { Select } from '@mantine/core';
 
 interface HelloWorldProps {
     name: string;
@@ -47,6 +48,27 @@ export const TrendPage: React.FC<HelloWorldProps> = ({ name }) => {
         { time: '2018-12-31', value: 22.67 },
     ];
 
+    const data  = [
+        'Israel - ISR',
+        'Denmark - DNK',
+        'Australia - AUS',
+        'Egypt: EGY',
+        'Kyrgyz Republic - KGZ',
+        'Pakistan - PAK',
+        'Italy - ITA',
+        'Japan - JPN',
+        'Oman - OMN',
+        'Afghanistan - AFG',
+        'Iran - IRN',
+        'Syria - SYR',
+        'Kazakhstan - KAZ',
+        'Kuwait - KWT',
+        'Bahrain - BHR',
+        'Qatar - QAT',
+        'Jordan - JOR',
+        'Lebanon - LBN'
+    ];
+
     return (
         <div>
              <Container className='landing-page-container' fluid>
@@ -61,6 +83,16 @@ export const TrendPage: React.FC<HelloWorldProps> = ({ name }) => {
                      <div>
                          <h2 style={{marginLeft: '50px', marginTop: '20px'}}>123rd Test Movement Control Battallion</h2>
                          <p style={{marginLeft: '50px'}}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec efficitur tortor. In quis mi nec nunc viverra ultricies. Vivamus euismod tellus non volutpat aliquet. Curabitur tincidunt vitae odio et eleifend. Integer posuere ipsum in nisl varius, ut lacinia lorem volutpat. Nunc facilisis tristique est, id pharetra justo rhoncus ut.</p>
+                         {
+                            <Select
+                            label="Select Country"
+                            placeholder="Pick a Country"
+                            data={data}
+                            withScrollArea={false}
+                            styles={{ dropdown: { maxHeight: 200, overflowY: 'auto', backgroundColor: 'black', color: 'lightgray', }, input:{backgroundColor: 'black', color: 'lightgray'}}}
+                            mt="md"
+                            />
+                         }
                          {
                              loading ?  <StatsLoader/> : <StatsCards trends={trendData}/>
                          }
