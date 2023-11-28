@@ -24,7 +24,7 @@ interface SupplySearchPageProps {
 }
 
 const SupplySearchPage: React.FC<SupplySearchPageProps> = ({ props }) => {
-    const navigate = useNavigate();
+
     const [query, setQuery] = useState<string>('')
     const [searchResults, setSearchResults] = useState<any>([]);
     const [activePage, setPage] = useState(0);
@@ -37,6 +37,7 @@ const SupplySearchPage: React.FC<SupplySearchPageProps> = ({ props }) => {
             alert("Search query cannot have empty value");
         }
         else{
+            localStorage.setItem("request-supply-name", query)
             const searchResults = await searchFacilityBySupplies(userId, query, 1);
             setPage(1)
             setSearchResults(searchResults.results);
@@ -94,17 +95,7 @@ const SupplySearchPage: React.FC<SupplySearchPageProps> = ({ props }) => {
                                     <SearchResultsTable
                                         height="50vh"
                                         searchResults={searchResults}
-                                        rowButton={
-                                                <Button
-                                                    className='grow-on-hover'
-                                                    variant="light" color="lightgray"
-                                                    fullWidth mt="md" radius="md"
-                                                    onClick={() => navigate('/mcb/request')}
-                                                    style={{backgroundColor: 'rgba(255, 208, 18, 0.6)', maxWidth: '30%', marginLeft:'auto', marginRight: '1em'}}
-                                                >
-                                                    Request Supplies
-                                                </Button>
-                                        }
+
                                         rowContent={
                                             (result) => {
                                                 return (

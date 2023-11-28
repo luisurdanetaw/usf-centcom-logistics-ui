@@ -21,3 +21,14 @@ export const searchFacilityBySupplies = async (userId: string = "1", supply: str
             return false;
         });
 };
+
+export const findAllFacilities = async (): Promise<any> => {
+    const url = `http://127.0.0.1:8000/user/findAllFacilities`;
+
+    return fetch(url)
+        .then((response) => response.json())
+        .catch((error) => {
+            console.error("Fetch error: ", error);
+            return false;
+        });
+};

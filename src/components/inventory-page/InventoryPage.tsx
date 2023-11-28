@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
+    Autocomplete,
     Badge,
     Button,
     Card,
@@ -19,7 +20,7 @@ import {ProgressCard} from "../progress-card/ProgressCard";
 import {RingCard} from "../stats-ring-card/RingCard";
 import {StatsSegmented} from "../stats-segmeneted/StatsSegmented";
 import {useNavigate} from "react-router-dom";
-import {searchFacilityByName} from "../../services/api/facility";
+import {findAllFacilities, searchFacilityByName} from "../../services/api/facility";
 import { useQuery } from 'react-query';
 
 interface HelloWorldProps {
@@ -58,6 +59,7 @@ const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
     const [selectedSupply, setSelectedSupply] = useState<string>("");
     const [options, setOptions] = useState<string[]>(["Test"])
 
+    const [allFacilities, setAllFacilities] = useState<string[]>(['Fort Moore'])
     const [facilityName, setFacilityName] = useState('Fort Moore');
 
     function getFacilityStatus(){
@@ -68,7 +70,7 @@ const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
         else return 'Critical'
     }
 
-    async function onClickSearch() {
+    async function onClickDropdownOption() {
         const facility = await searchFacilityByName(facilityName);
         if (!facility || Object.keys(facility).length <= 1){
             alert("Facility not found")
@@ -135,7 +137,9 @@ const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
 
 
     useEffect(() => {
-        onClickSearch()
+        onClickDropdownOption()
+        findAllFacilities()
+            .then(data => setAllFacilities(data))
     }, []);
 
     return (
@@ -151,9 +155,9 @@ const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
                     <NavbarSimple/>
 
                     <div className={"home"}>
-                        <div className={"left"}>
+                        <div style={{marginLeft: '1em'}}>
                             <h1>Facility Information and Inventory</h1>
-                            <p>Movement Control Batallion Logistics - Facility lookup and inventory search page. </p>
+                            <p>M.O.V.E Logistics - Facility lookup and inventory search page. </p>
                         </div>
 
                         <Grid gutter="xl" justify="center" align="center">
@@ -188,33 +192,28 @@ const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
                                             Email: {facilityData?.['co_email']}
                                         </Text>
 
-                                        <Button
-                                            className='grow-on-hover'
-                                            variant="light" color="lightgray"
-                                            fullWidth mt="md" radius="md"
-                                            onClick={()=>{navigate('/mcb/trends')}}
-                                            style={{backgroundColor: 'rgba(255, 208, 18, 0.6)'}}
-                                        >
-                                            View facility trends
-                                        </Button>
                                     </Card>
                                     <h3>View different facility</h3>
-                                    <TextInput
+                                    <Autocomplete
                                         className={"select-menu"}
-                                        onChange={(event) => setFacilityName(event.currentTarget.value)}
+                                        maxDropdownHeight={100}
                                         label="Search facilities"
-                                        description="Input description"
                                         placeholder="e.g Fort Moore"
+                                        limit={5}
                                         bg="black"
+                                        data={allFacilities}
+                                        onChange={(selected) => {
+                                            setFacilityName(selected ?? "");
+                                        }}
                                         style={{ backgroundColor: 'black !important', marginRight: '2em' }}
-
+                                        styles={{dropdown: {backgroundColor: 'black'}}}
                                     />
                                     <div style={{marginRight:'2em', marginTop:'1.5em'}}>
                                         <Button
                                             className='grow-on-hover'
                                             variant="light" color="lightgray"
                                             fullWidth mt="md" radius="md"
-                                            onClick={onClickSearch}
+                                            onClick={onClickDropdownOption}
                                             style={{backgroundColor: 'rgba(255, 208, 18, 0.6)',  marginRight: '2em !important'}}
                                         >
                                             Search facility
@@ -230,6 +229,7 @@ const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
                                     <hr/>
                                     <Select
                                         classNames={{option:'option', options:'options'}}
+                                        maxDropdownHeight={100}
                                         className={"select-menu"}
                                         label="Search supplies"
                                         data={options}
@@ -247,6 +247,10 @@ const InventoryPage: React.FC<HelloWorldProps> = ({ name }) => {
                                         supplyClass={selectedSupplyData.class}
                                         cf={selectedSupplyData.cf}
                                         so={selectedSupplyData.so}
+                                        tmrs={facilityData?.active_tmrs ?? 0}
+                                        awaiting_fulfillment={facilityData?.awaiting_fulfillment_tmrs ?? 0}
+                                        need_approval={facilityData?.need_approval_tmrs?? 0}
+
                                     />
                                     <ProgressCard
                                         title={"Inventory Level / Stockage Objective"}

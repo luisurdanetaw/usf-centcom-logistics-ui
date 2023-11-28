@@ -57,7 +57,6 @@ const TmrPage: React.FC<TmrPageProps> = ({ name }) => {
                                                 </Group>
                                                 <Text size="sm" c="dimmed">Status: {result.status}</Text>
                                                 <Text size="sm" c="dimmed">Cargo Description: {result.cargo_description}</Text>
-                                                <Text size="sm" c="dimmed">Email: {result.email}</Text>
                                             </React.Fragment>
                                         )
                                     }

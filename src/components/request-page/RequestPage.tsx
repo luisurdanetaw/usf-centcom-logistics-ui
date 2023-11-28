@@ -43,7 +43,7 @@ const RequestPage: React.FC<RequestPageProps> = ({ props }) => {
                             <Grid.Col span={12}>
                                 <div className={"left"}>
                                     <FormComponent
-                                        fields={["cargo_description", "quantity", "units", "id_num"]}
+                                        fields={["facility_name", "cargo_description", "quantity", "units"]}
                                         url={"http://127.0.0.1:8000/tmr/createTMR"}
                                     />
                                 </div>

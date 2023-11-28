@@ -1,17 +1,21 @@
 import { Text, Card, RingProgress, Group, useMantineTheme } from '@mantine/core';
 import './ring-card.scss';
 
-const stats = [
-    { value: 447, label: 'Awaiting Fulfillment' },
-    { value: 76, label: 'Need Approval' },
-];
+
 interface RingCardProps {
     title:string;
     supplyClass:string;
     cf:number;
     so:number;
+    tmrs:number;
+    need_approval:number;
+    awaiting_fulfillment: number;
 }
-export const RingCard:React.FC<RingCardProps> = ({title, supplyClass, so, cf}) => {
+export const RingCard:React.FC<RingCardProps> = ({title, supplyClass, so, cf, tmrs, need_approval, awaiting_fulfillment}) => {
+    const stats = [
+        { value: awaiting_fulfillment, label: 'Awaiting Fulfillment' },
+        { value: need_approval, label: 'Need Approval' },
+    ];
 
     const items = stats.map((stat) => (
         <div key={stat.label}>
@@ -31,7 +35,7 @@ export const RingCard:React.FC<RingCardProps> = ({title, supplyClass, so, cf}) =
                     </Text>
                     <div>
                         <Text className={'lead'} mt={30}>
-                            1887
+                            {tmrs}
                         </Text>
                         <Text fz="xs" c="dimmed">
                             TMRs Active

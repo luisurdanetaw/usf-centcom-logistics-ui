@@ -2,20 +2,22 @@ import {Button, Card, Drawer, Grid, Group, ScrollArea, Text, Timeline} from "@ma
 import React, {useState} from "react";
 import {useDisclosure} from "@mantine/hooks";
 import {capitalizeFirstLetter, removeUnderscoresAndCapitalize} from "../services/utilities/strings";
+import {useNavigate} from "react-router-dom";
 
 interface SearchResultTableProps {
     searchResults: any [];
-    rowButton?: React.ReactNode;
+    //rowButton?: React.ReactNode;
     rowContent: (result:any) => React.ReactNode;
     withDrawer:boolean;
     height:string
 }
 
 
-const SearchResultsTable:React.FC<SearchResultTableProps> = ({height, searchResults, rowButton, rowContent, withDrawer}) => {
+const SearchResultsTable:React.FC<SearchResultTableProps> = ({height, searchResults, rowContent, withDrawer}) => {
     const [drawerChildren, setDrawerChildren] = useState(<div></div>);
     const [opened, { open, close }] = useDisclosure(false);
 
+    const navigate = useNavigate();
     const getKeyTitle = (key: string) => {
         const keys = ['rld', 'rdd', 'ald', 'add'];
         if(!keys.includes(key)){
@@ -125,7 +127,20 @@ const SearchResultsTable:React.FC<SearchResultTableProps> = ({height, searchResu
                                                     >
                                                         View TMR
                                                     </Button>
-                                                ) : rowButton
+                                                ) :
+                                                <Button
+                                                    className='grow-on-hover'
+                                                    variant="light" color="lightgray"
+                                                    fullWidth mt="md" radius="md"
+                                                    onClick={() => {
+                                                            localStorage.setItem("request-facility-name", result.name);
+                                                            navigate('/mcb/request');
+                                                        }
+                                                    }
+                                                    style={{backgroundColor: 'rgba(255, 208, 18, 0.6)', maxWidth: '30%', marginLeft:'auto', marginRight: '1em'}}
+                                                >
+                                                    Request Supplies
+                                                </Button>
                                         }
                                     </Grid.Col>
                                 </Grid>

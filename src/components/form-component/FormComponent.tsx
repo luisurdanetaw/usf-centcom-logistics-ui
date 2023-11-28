@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Button,
     TextInput,
@@ -15,6 +15,13 @@ interface FormComponentProps {
 
 const FormComponent: React.FC<FormComponentProps> = ({ fields, url }) => {
 
+    useEffect(() => {
+        const facility = localStorage.getItem("request-facility-name") ?? '';
+        const supply = localStorage.getItem('request-supply-name') ?? '';
+        handleInputChange("cargo_description", supply);
+        handleInputChange("facility_name", facility)
+    }, [])
+
     const [inputValues, setInputValues] = useState<{ [key: string]: string }>({});
 
     const handleInputChange = (fieldName: string, value: string) => {
@@ -23,28 +30,16 @@ const FormComponent: React.FC<FormComponentProps> = ({ fields, url }) => {
             [fieldName]: value,
         }));
     };
-/*
-id: int = 0
-    requestor_id: Optional[int] = None
-    cargo_description: Optional[str] = None
-    quantity: Optional[str] = None
-    units: Optional[str] = None
-    id_num: Optional[str] = None
-    requestor: Optional[str] = None
-    date_received: Optional[str] = None
-
- */
-
     const onSubmit = async () => {
         const currentDate: Date = new Date();
 
 // To get the current date as a string
         const currentDateAsString: string = currentDate.toISOString().split('T')[0];
-        const params = (fields.length > 3)  ?
+        const params = (fields.length >= 3)  ?
             {
                 ...inputValues,
                 facility_id: localStorage.getItem('facility-id'),
-                requestor: 'luis',
+                requestor: 'l',
                 requestor_id: '1',
                 date_received: currentDateAsString
             } :
