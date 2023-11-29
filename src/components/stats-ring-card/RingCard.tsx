@@ -13,7 +13,7 @@ interface RingCardProps {
 }
 export const RingCard:React.FC<RingCardProps> = ({title, supplyClass, so, cf, tmrs, need_approval, awaiting_fulfillment}) => {
     const stats = [
-        { value: awaiting_fulfillment, label: 'Awaiting Fulfillment' },
+        { value: awaiting_fulfillment, label: 'Pending Fulfillment' },
         { value: need_approval, label: 'Need Approval' },
     ];
 
