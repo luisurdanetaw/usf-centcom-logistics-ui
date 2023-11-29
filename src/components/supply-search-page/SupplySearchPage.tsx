@@ -72,13 +72,13 @@ const SupplySearchPage: React.FC<SupplySearchPageProps> = ({ props }) => {
                     <NavbarSimple/>
 
                     <div className={"home"}>
-                        <div className={"left"}>
+                        <div className={"form"}>
                             <h1>Supply Search</h1>
                         </div>
 
                         <Grid gutter="xl" justify="center" align="center">
                             <Grid.Col span={12}>
-                                <div className={"left"}>
+                                <div className={"form"}>
                                     <SearchControls
                                         label={"Search supplies"}
                                         placeholder={"e.g Gas"}
@@ -90,12 +90,12 @@ const SupplySearchPage: React.FC<SupplySearchPageProps> = ({ props }) => {
                                 </div>
                             </Grid.Col>
                             <Grid.Col span={12}>
-                                <div className="left">
+                                <div className="form">
                                     <h5 style={{display: totalResults === 0 ? 'none':'block'}}>Query results for {query}: {totalResults} found</h5>
                                     <SearchResultsTable
                                         height="50vh"
                                         searchResults={searchResults}
-
+                                        trendsPage={false}
                                         rowContent={
                                             (result) => {
                                                 return (

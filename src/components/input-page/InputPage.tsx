@@ -36,13 +36,13 @@ const InputPage: React.FC<InputPageProps> = ({ props }) => {
                     <NavbarSimple/>
 
                     <div className={"home"}>
-                        <div className={"left"}>
+                        <div className={"form"}>
                             <h1>Inventory Data Form</h1>
                         </div>
 
                         <Grid gutter="xl" justify="center" align="center">
                             <Grid.Col span={12}>
-                                <div className={"left"}>
+                                <div className={"form"}>
                                     <FormComponent
                                         fields={["item_name", "quantity"]}
                                         url={"http://127.0.0.1:8000/tmr/update"}

@@ -48,6 +48,7 @@ const TmrPage: React.FC<TmrPageProps> = ({ name }) => {
                             <SearchResultsTable
                                 height="75vh"
                                 searchResults={tmrData}
+                                trendsPage={false}
                                 rowContent={
                                     (result) => {
                                         return (

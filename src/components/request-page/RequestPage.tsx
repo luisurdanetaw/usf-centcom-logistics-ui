@@ -35,13 +35,13 @@ const RequestPage: React.FC<RequestPageProps> = ({ props }) => {
                     <NavbarSimple/>
 
                     <div className={"home"}>
-                        <div className={"left"}>
+                        <div className={"form"}>
                             <h1>Request Supplies</h1>
                         </div>
 
                         <Grid gutter="xl" justify="center" align="center">
                             <Grid.Col span={12}>
-                                <div className={"left"}>
+                                <div className={"form"}>
                                     <FormComponent
                                         fields={["facility_name", "cargo_description", "quantity", "units"]}
                                         url={"http://127.0.0.1:8000/tmr/createTMR"}

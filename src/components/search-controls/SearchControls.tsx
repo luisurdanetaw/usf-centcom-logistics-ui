@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Card, Grid, Group, ScrollArea, Text, TextInput} from "@mantine/core";
-
+import './search-controls.scss'
 interface SearchControlsProps {
     label: string;
     placeholder: string;
@@ -14,13 +14,12 @@ const SearchControls:React.FC<SearchControlsProps> = ({label, placeholder, small
     return (
         <React.Fragment>
             <TextInput
-                className={"select-menu"}
                 onChange={onChange}
                 label={label}
                 description={smallerLabel}
                 placeholder={placeholder}
-                bg="black"
-                style={{display:'inline-block', backgroundColor: 'black !important', marginRight: '2em' }}
+                style={{display:'inline-block', marginRight: '2em'}}
+                classNames={{input:'fucking-search-bar'}}
             />
             <div style={{display:'inline-block', marginRight:'2em', marginTop:'1.5em'}}>
                 <Button

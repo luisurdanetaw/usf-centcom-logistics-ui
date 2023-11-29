@@ -1,8 +1,20 @@
-import {Button, Card, Drawer, Grid, Group, ScrollArea, Text, Timeline} from "@mantine/core";
-import React, {useState} from "react";
-import {useDisclosure} from "@mantine/hooks";
+import {
+    Button,
+    Card,
+    Drawer,
+    Grid,
+    Group,
+    ScrollArea,
+    Text,
+    TextInput,
+    Timeline,
+    useSafeMantineTheme
+} from "@mantine/core";
+import React, {useEffect, useState} from "react";
+import {useDisclosure, useForceUpdate} from "@mantine/hooks";
 import {capitalizeFirstLetter, removeUnderscoresAndCapitalize} from "../services/utilities/strings";
 import {useNavigate} from "react-router-dom";
+import {updateTmr} from "../services/api/tmr";
 
 interface SearchResultTableProps {
     searchResults: any [];
@@ -10,22 +22,41 @@ interface SearchResultTableProps {
     rowContent: (result:any) => React.ReactNode;
     withDrawer:boolean;
     height:string
+    trendsPage: boolean
 }
 
 
-const SearchResultsTable:React.FC<SearchResultTableProps> = ({height, searchResults, rowContent, withDrawer}) => {
+const SearchResultsTable:React.FC<SearchResultTableProps> = ({height, trendsPage, searchResults, rowContent, withDrawer}) => {
     const [drawerChildren, setDrawerChildren] = useState(<div></div>);
     const [opened, { open, close }] = useDisclosure(false);
-
     const navigate = useNavigate();
+
+    const [updatedDetails, setUpdatedDetails] = useState<any>({})
+    const handleInputChange = (key:string, value:string) => {
+        setUpdatedDetails((prevDetails: any) => ({
+            ...prevDetails,
+            [key]: value,
+        }));
+    }
+
+    const onClickSave = (row: any) => {
+        updateTmr(row.id, updatedDetails)
+            .then((success) => {
+                success ? alert("Saved successfully") : alert("Unable to save details");
+            })
+            .catch((error) => {
+                console.error("Error saving details:", error);
+                alert("An error occurred while saving details");
+            });
+    };
+
     const getKeyTitle = (key: string) => {
         const keys = ['rld', 'rdd', 'ald', 'add'];
         if(!keys.includes(key)){
             return removeUnderscoresAndCapitalize(key);
         }
 
-        const title = key === 'rld' || key ==='ald' ? "Load Date" : "Delivery Date";
-        return title;
+        return key === 'rld' || key === 'ald' ? "Load Date" : "Delivery Date";
     }
     const statusCollections:Record<string, string[]> = {
         notApproved: ['date_received', 'date_approved'],
@@ -73,7 +104,11 @@ const SearchResultsTable:React.FC<SearchResultTableProps> = ({height, searchResu
                         <Text size="sm" c="lightgray">{removeUnderscoresAndCapitalize(key)}</Text>
                     </Group>
                     <Group justify="space-between" mt="xs" mb="xs">
-                        <Text size="sm" c="dimmed" style={{display: 'block', marginTop:'0'}}>{value}</Text>
+                            <TextInput
+                                value={value ?? ''}
+                                onChange={(e) => handleInputChange(key, e.target.value)}
+                                style={{display: 'block', marginTop:'0', border:'none'}}
+                            />
                     </Group>
                 </React.Fragment>
                 )
@@ -85,6 +120,12 @@ const SearchResultsTable:React.FC<SearchResultTableProps> = ({height, searchResu
                 <Timeline color="rgba(242, 207, 10, 1)" active={active}>
                     {bullets}
                 </Timeline>
+                <Button
+                    onClick={(e) => onClickSave(row)}
+                    style={{backgroundColor: 'rgba(255, 208, 18, 0.6)',  marginRight: '2em !important', marginTop: '2em'}}
+                >
+                    Save Changes
+                </Button>
                 <div>
                     {allDetails}
                 </div>
@@ -128,6 +169,7 @@ const SearchResultsTable:React.FC<SearchResultTableProps> = ({height, searchResu
                                                         View TMR
                                                     </Button>
                                                 ) :
+                                                !trendsPage &&
                                                 <Button
                                                     className='grow-on-hover'
                                                     variant="light" color="lightgray"

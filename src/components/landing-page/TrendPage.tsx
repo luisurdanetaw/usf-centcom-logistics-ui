@@ -128,6 +128,7 @@ export const TrendPage: React.FC<HelloWorldProps> = ({ name }) => {
 
                                                      }
                                                      withDrawer={false}
+                                                     trendsPage={true}
                                                  />
                                          }
                                      </ScrollArea>
