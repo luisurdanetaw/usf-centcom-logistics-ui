@@ -16,6 +16,7 @@ interface HelloWorldProps {
     name: string;
 }
 const countries  = [
+    'United States - USA',
     'Israel - ISR',
     'Denmark - DNK',
     'Australia - AUS',
@@ -42,13 +43,15 @@ export const TrendPage: React.FC<HelloWorldProps> = ({ name }) => {
     const [country, setCountry] = useState<string>("USA")
     const [topRequestors, setTopRequestors] = useState<any>([["", 1]])
     const [loading, setLoading] = useState(true);
+    const [chartData, setChartData] = useState<any[]>([])
 
     const fetchData = async () => {
         try {
             const data = await fetchTrends(country);
-            const { topRequestors, ...dataWithoutTopRequestors } = data;
+            const { topRequestors, consumption, ...dataWithoutTopRequestors } = data;
             setTrendData(dataWithoutTopRequestors);
             setTopRequestors(topRequestors);
+            setChartData(data.consumption)
         } catch (error) {
             console.error('Error fetching trends:', error);
         } finally {
@@ -99,7 +102,13 @@ export const TrendPage: React.FC<HelloWorldProps> = ({ name }) => {
                          <SimpleGrid cols={2} style={{marginLeft: '0.5em'}}>
                              <div className={'graph-table-height'}>
                                  <h3>Supply Consumption</h3>
-                                 <BarChart props={null}/>
+                                 {loading ?
+                                     <Paper p="xl" radius="xl" className={'no-background'}>
+                                         <Group justify="apart" style={{paddingLeft: '10em', paddingTop: '5em'}}>
+                                             <Loader color='yellow' size={100}/>
+                                         </Group>
+                                     </Paper> : <BarChart consumption={chartData}/>
+                                 }
                              </div>
                              <div className={'graph-table-height'}>
                                  <h3 style={{color: "lightgray"}}>Top requesters</h3>

@@ -1,21 +1,12 @@
 import './bar-chart.scss'
 import React, {Fragment, useState,} from "react";
 
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
-import {faker} from "@faker-js/faker";
+import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip,} from 'chart.js';
+import {Bar} from 'react-chartjs-2';
 
 
 interface BarChartProps {
-    props: any;
+    consumption: any[];
 }
 
 
@@ -28,8 +19,9 @@ ChartJS.register(
     Legend
 );
 
-export const BarChart: React.FC<BarChartProps> = ({ props }) => {
+export const BarChart: React.FC<BarChartProps> = ({ consumption }) => {
     const [delayed, setDelayed] = useState<boolean>(false);
+
 
     const options = {
         type: 'bar',
@@ -55,7 +47,7 @@ export const BarChart: React.FC<BarChartProps> = ({ props }) => {
             },
             title: {
                 display: true,
-                text: 'Consumption (SAMPLE)',
+                text: 'Monthly Consumption',
                 color: 'whitesmoke'
             },
         },
@@ -74,30 +66,56 @@ export const BarChart: React.FC<BarChartProps> = ({ props }) => {
         },
     };
 
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    let monthsMap: { [month: string]: number } = {
+        'January': 1,
+        'February': 2,
+        'March': 3,
+        'April': 4,
+        'May': 5,
+        'June': 6,
+        'July': 7,
+        'August': 8,
+        'September': 9,
+        'October': 10,
+        'November': 11,
+        'December': 12,
+    };
+
+    let months: string[] = ['January', 'February','March','April','May','June','July','August','September','October','November','December'];
+
+
+    const getClassMonthlyData = (supplyClass: string) => {
+         return consumption
+            .filter(obj => obj.year === 2023 && obj.class === supplyClass)
+            .sort((a, b) => a.month - b.month) // Sort by month
+            .map(obj => obj.monthly_consumption);
+    };
+
+    const supplyClasses = ['I', 'III'];
+
+    let colors = [
+        ['rgba(255, 234, 0, 0.4)', 'rgba(255, 234, 0, 1)'],
+        ['rgba(134, 209, 152, 0.4)', 'rgba(134, 209, 152, 1)'],
+    ];
+
+    const datasets = supplyClasses.map((supplyClass, i) => {
+        let [colorMidOpaque, colorOpaque] = colors[i];
+        return {
+            id: i,
+            label: supplyClass,
+            data: getClassMonthlyData(supplyClass),
+            backgroundColor: colorMidOpaque,
+            borderWidth: 2,
+            borderRadius: 5,
+            borderSkipped: false,
+            borderColor: colorOpaque
+        }
+
+    })
 
     const data = {
-        labels,
-        datasets: [
-            {
-                label: 'Class I',
-                data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-                backgroundColor: 'rgba(255, 234, 0, 0.4)',
-                borderWidth: 2,
-                borderRadius: 5,
-                borderSkipped: false,
-                borderColor: 'rgba(255, 234, 0, 1)'
-            },
-            {
-                label: 'Class III',
-                data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-                backgroundColor: 'rgba(134, 209, 152, 0.4)',
-                borderWidth: 2,
-                borderRadius: 5,
-                borderSkipped: false,
-                borderColor: 'rgba(134, 209, 152, 1)'
-            },
-        ],
+        labels: months,
+        datasets: datasets
     };
 
     return (

@@ -4,6 +4,7 @@ export interface TrendData {
     shipmentSpeed: any;
     delayedShipments: any;
     topRequestors:any;
+    consumption:any;
 }
 
 const fetchTrends = async (country: string) => {
@@ -12,7 +13,8 @@ const fetchTrends = async (country: string) => {
         `http://localhost:8000/trends/tmrsReceived?country=${country}`,
         `http://localhost:8000/trends/shipmentSpeed?country=${country}`,
         `http://localhost:8000/trends/delayedShipments?country=${country}`,
-        `http://localhost:8000/trends/topRequestors?country=${country}`
+        `http://localhost:8000/trends/topRequestors?country=${country}`,
+        `http://localhost:8000/trends/consumption?country=${country}`,
     ];
 
     try {
@@ -25,7 +27,8 @@ const fetchTrends = async (country: string) => {
             tmrsReceived: await responses[1].json(),
             shipmentSpeed: await responses[2].json(),
             delayedShipments: await responses[3].json(),
-            topRequestors: await responses[4].json()
+            topRequestors: await responses[4].json(),
+            consumption: await responses[5].json()
         };
 
         // Return the parsed data
